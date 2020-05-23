@@ -1,0 +1,187 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+
+    // Automatic Alert System
+    string error = (string)TempData["ErrorMessage"] ?? "";
+    string success = (string)TempData["SuccessMessage"] ?? "";
+
+    // URLs
+    string loginURL = Url.Action("Login", "Account");
+    string aboutURL = Url.Action("About", "Home");
+    string contactURL = Url.Action("Contact", "Home");
+
+
+    string singupURL = "#";
+    string PerfilURL = "#";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Jaramillo </title>
+    <!-- ContentCSS -->
+    @Styles.Render("~/ContentCSS")
+    <!-- modernizr -->
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- HeadScrips -->
+    @Scripts.Render("~/HeadScrips")
+
+</head>
+<body>
+    <!--! Automatic Alert System -->
+    <div id="alerts" class="fixed-top mx-3 mt-3"> </div>
+
+    <div class="wrap">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-md-3 d-flex align-items-center">
+                    <a class="navbar-brand" href="/">Jaramillo<span>.</span></a>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="top-wrap d-flex">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
+                                <div class="text"><span>Dirección</span><span>Calle Falsa 666</span></div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="top-wrap d-flex">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
+                                <div class="text"><span>Llámanos al</span><span>(+569) 9 0420 6669</span></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-end align-items-center">
+                            <div role="button" class="social-media">
+
+                                
+                                @if (Request.IsAuthenticated)
+                                {
+                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary btn-sm px-3 dropdown-toggle" type="button" id="login-dw" 
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @User.Identity.GetUserName()
+                                            </button>
+
+
+                                            <div class="dropdown-menu login-dw-box" aria-labelledby="login-dw">
+                                                <a class="dropdown-item" href="@PerfilURL">Perfil</a>
+                                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <a role="button" href="@singupURL" class="btn btn-primary mr-3">
+                                        Registrarme
+                                    </a>
+                                    <a role="button" href="@loginURL" class="btn btn-secondary">
+                                        Iniciar Sesión
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <form action="#" class="searchform order-lg-last">
+                <div class="form-group d-flex">
+                    <input type="text" class="form-control pl-3" placeholder="Search">
+                    <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+                </div>
+            </form>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="@aboutURL" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Team</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="@contactURL" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container body-content py-3">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <!-- Jquery 3.4.1 -->
+    @Scripts.Render("~/bundles/jquery")
+    <!-- Bootstrap 4.5 -->
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Jquery Validation 1.19.1 -->
+    @Scripts.Render("~/bundles/jqueryval")
+    <!-- Site wide custom Scripts  -->
+    @Scripts.Render("~/MainScripts")
+
+    <!-- customScripts  -->
+    @RenderSection("customScripts", false)
+    @RenderSection("Scripts", false)
+    <!-- /customScripts  -->
+
+    <script>
+        {
+            //! Automatic Alert System: Get the error message and show an alert with it
+            let err = '@error.Replace("\r\n", " ")';
+            if (err) ShowAlert(err, 'alert-danger', 3);
+
+            let success = '@success.Replace("\r\n", " ")';
+            if (success) ShowAlert(success, 'alert-success', 1);
+        }
+
+        var carousel = function() {
+		    $('.home-slider').owlCarousel({
+	        loop:true,
+	        autoplay: true,
+	        margin:0,
+	        animateOut: 'fadeOut',
+	        animateIn: 'fadeIn',
+	        nav:true,
+	        dots: true,
+	        autoplayHoverPause: false,
+	        items: 1,
+	        navText : ["<span class='ion-ios-arrow-back'></span>","<span class='ion-ios-arrow-forward'></span>"],
+	        responsive:{
+	          0:{
+	            items:1
+	          },
+	          600:{
+	            items:1
+	          },
+	          1000:{
+	            items:1
+	          }
+	        }
+		    });
+	    };
+	    carousel();
+    </script>
+</body>
+</html>
