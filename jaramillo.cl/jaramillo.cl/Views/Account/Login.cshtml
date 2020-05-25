@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Iniciar Sesión";
 }
- 
-<h2>@ViewBag.Title.</h2>
+
+<h2>
+    @ViewBag.Title
+</h2>
 <hr />
 <div class="row">
     <div class="col-md-8">
@@ -45,7 +47,7 @@
                 </div>
 
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
+                    @Html.ActionLink("¿No tienes una cuenta? ¡Registrate!", "Register")
                 </p>
             }
         </section>

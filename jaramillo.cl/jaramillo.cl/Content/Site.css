@@ -11703,6 +11703,8 @@ h1, h2, h3, h4, h5,
     .owl-carousel.home-slider {
         position: relative;
         height: 700px;
+        /*height: 500px;
+        overflow: hidden;*/
         z-index: 0;
     }
 
@@ -12135,7 +12137,7 @@ h1, h2, h3, h4, h5,
 
 @media (min-width: 992px) {
     .intro-wrap {
-        margin-top: -50px;
+        margin-top: -30px;
     }
 }
 
@@ -12164,7 +12166,7 @@ h1, h2, h3, h4, h5,
 
 .bg-intro .intro-box {
     width: calc(100% - 240px);
-    padding: 20px 0;
+    padding: 16px 0;
 }
 
 @media (max-width: 991.98px) {
@@ -12184,13 +12186,6 @@ h1, h2, h3, h4, h5,
     .bg-intro .intro-box h2 span {
         color: rgba(255, 255, 255, 0.4);
     }
-
-.bg-intro .intro-box .icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
 
     .bg-intro .intro-box .icon i {
         font-size: 24px;
@@ -12713,7 +12708,7 @@ textarea.form-control {
 }
 
 .ftco-section {
-    padding: 7em 0;
+    padding: 3em 0;
     position: relative;
 }
 
@@ -13268,7 +13263,7 @@ textarea.form-control {
     padding: 0;
 }
 
-    .block-23 ul li, .block-23 ul li > a {
+    .block-23 ul li/*, .block-23 ul li > a*/ {
         display: table;
         line-height: 1.5;
         margin-bottom: 15px;

@@ -1,31 +1,156 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    
+    string servURL = "#";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<!-- CARRUSEL SUPERIOR -->
+<div class="hero-wrap">
+    <div class="home-slider owl-carousel">
+
+        <!-- ELEMENTO 1 -->
+        <div class="slider-item" style="background-image:url(@Url.Content("~/Content/Images/bg_1.jpg"));">
+            <div class="overlay"></div>
+
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-start">
+                    <div class="col-md-6 ftco-animate">
+                        <div class="text w-100">
+                            <h2>Nos importa tu auto</h2>
+                            <h1 class="mb-4">Alarga la vida de tu vehículo</h1>
+                            <p><a href="@servURL" class="btn btn-primary">Revisa nuestros servicios</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ELEMENTO 2 -->
+        <div class="slider-item" style="background-image:url(@Url.Content("~/Content/Images/bg_2.jpg"));">
+            <div class="overlay"></div>
+
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-start">
+                    <div class="col-md-6 ftco-animate">
+                        <div class="text w-100">
+                            <h2>Nos importa tu auto</h2>
+                            <h1 class="mb-4">Repara tu vehículo</h1>
+                            <p><a href="@servURL" class="btn btn-primary">Revisa nuestros servicios</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!-- CTA INICIAL -->
+<section class="intro">
+    <div class="container intro-wrap">
+        <div class="row no-gutters">
+            <div class="col-md-12 col-lg-9 bg-intro d-sm-flex align-items-center align-items-stretch">
+                <div class="intro-box d-flex align-items-center">
+                    <div class="icon d-flex align-items-center justify-content-center ">
+                        <i class="fa fa-wrench"></i>
+                    </div>
+                    <h2 class="mb-0"> Repara tu vehículo ahora! </h2>
+                </div>
+                <a href="@servURL" class="bg-primary btn-custom d-flex align-items-center"><span>Agenda una hora</span></a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+
+<!-- RESUMEN -->
+<section class="ftco-section">
+    <div class="container">
+
+        <!-- TÍTULO -->
+        <div class="row justify-content-center pb-5 mb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Queremos ayudarte</span>
+                <h2>Nuestros Servicios</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 services ftco-animate">
+
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-car-service"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Cambio de Aceite</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-tyre"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Cambio de Llantas</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 services ftco-animate">
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-battery"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Baterías</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-car-engine"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Motor</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 services ftco-animate">
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-tow-truck"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Remolque de Vehículos</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+                <div class="d-block d-flex">
+                    <div class="icon d-flex justify-content-center align-items-center">
+                        <span class="flaticon-repair"></span>
+                    </div>
+                    <div class="media-body pl-3">
+                        <h3 class="heading">Mantención General</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris neque ante, tincidunt non convallis sit.</p>
+                        <p><a href="#" class="btn-custom">Detalles</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</section>

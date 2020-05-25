@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @{
+    // Current controller in action
+    var controller = ViewContext.RouteData.Values["controller"];
+    var action = ViewContext.RouteData.Values["action"];
+    var loc = $"{action}|{controller}";
 
     // Automatic Alert System
     string error = (string)TempData["ErrorMessage"] ?? "";
@@ -8,11 +12,13 @@
     // URLs
     string loginURL = Url.Action("Login", "Account");
     string aboutURL = Url.Action("About", "Home");
+    string teamURL = "#";
+    string servURL = "#";
     string contactURL = Url.Action("Contact", "Home");
 
 
     string singupURL = "#";
-    string PerfilURL = "#";
+    string perfilURL = "#";
 }
 
 <!DOCTYPE html>
@@ -33,6 +39,7 @@
     <!--! Automatic Alert System -->
     <div id="alerts" class="fixed-top mx-3 mt-3"> </div>
 
+    <!-- HEADER -->
     <div class="wrap">
         <div class="container">
             <div class="row justify-content-between">
@@ -59,21 +66,21 @@
                         <div class="col-md-6 d-flex justify-content-end align-items-center">
                             <div role="button" class="social-media">
 
-                                
+
                                 @if (Request.IsAuthenticated)
                                 {
                                     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                                     {
                                         @Html.AntiForgeryToken()
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary btn-sm px-3 dropdown-toggle" type="button" id="login-dw" 
+                                            <button class="btn btn-secondary btn-sm px-3 dropdown-toggle" type="button" id="login-dw"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 @User.Identity.GetUserName()
                                             </button>
 
 
                                             <div class="dropdown-menu login-dw-box" aria-labelledby="login-dw">
-                                                <a class="dropdown-item" href="@PerfilURL">Perfil</a>
+                                                <a class="dropdown-item" href="@perfilURL">Perfil</a>
                                                 <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
                                             </div>
                                         </div>
@@ -98,39 +105,92 @@
         </div>
     </div>
 
-
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span> Menu
             </button>
-            <form action="#" class="searchform order-lg-last">
-                <div class="form-group d-flex">
-                    <input type="text" class="form-control pl-3" placeholder="Search">
-                    <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
-                </div>
-            </form>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="@aboutURL" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Team</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="@contactURL" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
+                    <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")"><a href="@aboutURL" class="nav-link">Sobre Nosotros</a></li>
+                    <li class="nav-item"><a href="@teamURL" class="nav-link">Equipo</a></li>
+                    <li class="nav-item"><a href="@servURL" class="nav-link">Servicios</a></li>
+                    <li class="nav-item @(loc.Equals("Contact|Home") ? "active" : "")"><a href="@contactURL" class="nav-link">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
-    <div class="container body-content py-3">
+    <!-- BODY -->
+    <div class="@(loc.Equals("Index|Home") ? "" : "container body-content py-3")">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+
+    <!-- FOOTER -->
+    <footer class="footer ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+
+                <!-- COL IZQUIERDA -->
+                <div class="col-md-6 col-lg">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="logo"><a href="#">Jaramillo<span>.</span></a></h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pulvinar ac felis non tempor. Nulla facilisi volutpat.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-4">
+                            <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fab fa-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- COL MEDIO -->
+                <div class="col-md-6 col-lg">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Contacto</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li class="mb-3"><span class="icon fa fa-map-marker "></span><span class="text">Calle Falta 666</span></li>
+                                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+56 9 0420 6669 </span></a></li>
+                                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@jaramillo.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COL DERECHA -->
+                <div class="col-md-6 col-lg">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Horario de Atención</h2>
+                        <div class="opening-hours">
+                            <h4>Horario</h4>
+                            <p class="pl-3">
+                                <span>Lunes – Viernes : 9am to 20 pm</span>
+                                <br />
+                                <span>Sabados : 9am to 13 pm</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COPYRIGHT -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> Todos los Derechos Reservados | Esta plantilla fue hecha con <i class="fa fa-heart mx-1" aria-hidden="true"></i> por <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Jquery 3.4.1 -->
     @Scripts.Render("~/bundles/jquery")
@@ -159,7 +219,7 @@
         var carousel = function() {
 		    $('.home-slider').owlCarousel({
 	        loop:true,
-	        autoplay: true,
+	        autoplay: false,
 	        margin:0,
 	        animateOut: 'fadeOut',
 	        animateIn: 'fadeIn',
