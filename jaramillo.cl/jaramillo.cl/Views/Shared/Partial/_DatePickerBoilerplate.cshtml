@@ -1,0 +1,17 @@
+﻿<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<style>
+    .datepicker{
+        padding: 0.375rem 0.75rem;
+    }
+</style>
+<script>
+        $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+        $('.datepicker').datepicker(); //Initialise any date pickers
+
+        $.validator.methods.date = function (value, element) {
+            var dateRegex = /^(0?[1-9]|[12]\d|3[01])\/(0?[1-9]|10|11|12)\/(19|20)\d\d(\D.*)?$/;
+            return this.optional(element) || dateRegex.test(value);
+        }
+</script>
+

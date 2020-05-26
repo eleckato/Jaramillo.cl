@@ -54,16 +54,8 @@ namespace jaramillo.cl.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var userId = User.Identity.GetUserId();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -74,6 +66,7 @@ namespace jaramillo.cl.Controllers
             };
             return View(model);
         }
+
 
         //
         // POST: /Manage/RemoveLogin
@@ -333,57 +326,57 @@ namespace jaramillo.cl.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+        #region Helpers
+                // Used for XSRF protection when adding external logins
+                private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+                private IAuthenticationManager AuthenticationManager
+                {
+                    get
+                    {
+                        return HttpContext.GetOwinContext().Authentication;
+                    }
+                }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
+                private void AddErrors(IdentityResult result)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
 
-        private bool HasPassword()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
-        }
+                private bool HasPassword()
+                {
+                    var user = UserManager.FindById(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        return user.PasswordHash != null;
+                    }
+                    return false;
+                }
 
-        private bool HasPhoneNumber()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-            return false;
-        }
+                private bool HasPhoneNumber()
+                {
+                    var user = UserManager.FindById(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        return user.PhoneNumber != null;
+                    }
+                    return false;
+                }
 
-        public enum ManageMessageId
-        {
-            AddPhoneSuccess,
-            ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
-            Error
-        }
+                public enum ManageMessageId
+                {
+                    AddPhoneSuccess,
+                    ChangePasswordSuccess,
+                    SetTwoFactorSuccess,
+                    SetPasswordSuccess,
+                    RemoveLoginSuccess,
+                    RemovePhoneSuccess,
+                    Error
+                }
 
-#endregion
+        #endregion
     }
 }

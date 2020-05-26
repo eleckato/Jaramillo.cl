@@ -297,9 +297,6 @@ namespace jaramillo.cl.APICallers
 
                 var response = client.Execute(request);
 
-                // Throw an exception if the StatusCode is different from 200
-                CheckStatusCode(response);
-
                 return true;
             }
             catch (Exception e)

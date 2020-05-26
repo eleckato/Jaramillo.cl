@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using jaramillo.cl.Models;
+using jaramillo.cl.Models.APIModels;
+using jaramillo.cl.APICallers;
+using jaramillo.cl.Common;
+using System.Diagnostics;
 
 namespace jaramillo.cl.Controllers
 {
@@ -52,7 +56,7 @@ namespace jaramillo.cl.Controllers
             }
         }
 
-        //
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -61,7 +65,7 @@ namespace jaramillo.cl.Controllers
             return View();
         }
 
-        //
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -102,7 +106,16 @@ namespace jaramillo.cl.Controllers
         }
 
 
-        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -110,7 +123,6 @@ namespace jaramillo.cl.Controllers
             return View();
         }
 
-        //
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -129,9 +141,7 @@ namespace jaramillo.cl.Controllers
             try
             {
 
-                var res = new APICallers.UsuariosCaller().ResetPassword(model.Email);
-
-                if (!res) return Error_FailedRequest(false);
+                var res = new UsuariosCaller().ResetPassword(model.Email);
 
             }
             catch (Exception e)
@@ -143,7 +153,14 @@ namespace jaramillo.cl.Controllers
         }
 
 
-        //
+        // GET: /Account/ForgotPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -154,6 +171,57 @@ namespace jaramillo.cl.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+
+
+        // POST: /Account/RegisterClient
+        [AllowAnonymous]
+        public ActionResult RegisterClient()
+        {
+            return View();
+        }
+
+
+        // POST: /Account/RegisterClient
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterClient(Usuario newUser)
+        {
+            if (newUser == null) return Error_InvalidUrl();
+
+            string userId;
+
+            try
+            {
+                var UP = new UsuariosCaller();
+
+                newUser.status_id = "ACT";
+                newUser.user_type_id = "CLI";
+                newUser.mail_confirmed = false;
+                newUser.updated_at = DateTime.Now;
+                newUser.deleted = false;
+                newUser.appuser_id = Guid.NewGuid().ToString();
+
+                userId = UP.RegisterUser(newUser);
+
+                if (userId == null) return Error_FailedRequest();
+
+
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                Error_CustomError(e.Message);
+                return RedirectToAction("RegisterClient");
+            }
+
+            string successMsg = "Su cuenta ha sido registrada con éxito!";
+            SetSuccessMsg(successMsg);
+            TempData["registerSuccess"] = true;
+
+            return RedirectToAction("Login", new { userId });
         }
 
         //? ----------------------------------------------------------------
@@ -199,52 +267,6 @@ namespace jaramillo.cl.Controllers
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
-        }
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
         }
 
         //
@@ -401,16 +423,6 @@ namespace jaramillo.cl.Controllers
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
         }
 
         //

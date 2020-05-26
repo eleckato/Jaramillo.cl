@@ -2,54 +2,68 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Iniciar Sesión";
+
+    var registerSuccess = (bool?)TempData["registerSuccess"] ?? false;
 }
 
-<h2>
-    @ViewBag.Title
-</h2>
-<hr />
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
+@if (registerSuccess)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        La cuenta fue creada con éxito. Enviamos un correo para confirmar su cuenta, por favor confirme su correo e inicie sesión.
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label p-0" })
-                    <div class="col-md-10 p-0">
-                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+}
+
+
+<div class="wrapper col-12 col-md-10 col-lg-6 mx-auto">
+    <div class="contact-wrap w-100 p-md-5 p-3">
+        
+        <h3 class="mb-4"> @ViewBag.Title </h3>
+
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Nombre de Usuario" })
                     </div>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label p-0" })
-                    <div class="col-md-10 p-0">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe, new { @class="ml-2" })
-                        </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe, new { @class="ml-2" })
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-primary" />
-                    </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Log in" class="btn btn-primary" />
                 </div>
+            </div>
 
-                <p>
-                    @Html.ActionLink("¿No tienes una cuenta? ¡Registrate!", "Register")
-                </p>
-            }
-        </section>
+            <p>
+                @Html.ActionLink("Olvidé mi contraseña", "ForgotPassword")
+            </p>
+                
+            <h6>
+                No tienes una cuenta? @Html.ActionLink("Regístrate!", "RegisterClient")
+            </h6>
+        }
+
     </div>
 </div>

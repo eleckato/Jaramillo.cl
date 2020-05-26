@@ -407,7 +407,6 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -452,6 +451,8 @@
     <Content Include="webfonts\flaticon\font\Flaticon.woff2" />
     <Content Include="webfonts\flaticon\font\_flaticon.scss" />
     <Content Include="webfonts\flaticon\license\license.pdf" />
+    <Content Include="Views\Account\RegisterClient.cshtml" />
+    <Content Include="Views\Shared\Partial\_DatePickerBoilerplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,96 @@
+﻿@model jaramillo.cl.Models.APIModels.Usuario
+
+@{
+
+}
+    <div class="wrapper col-12 col-md-12 col-xl-8 mx-auto">
+        <div class="contact-wrap w-100 p-md-5 p-4">
+            
+            @using(Html.BeginForm("RegisterClient", "Account"))
+            {
+                @Html.AntiForgeryToken();
+
+                <h3 class="mb-4">Registrarse</h3>
+
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.username, new { @class = "form-control", @placeholder = "Nombre de Usuario" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Email" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.hash, new { @class = "form-control", @placeholder = "Contraseña" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.hash, new { @class = "form-control", @placeholder = "Repita su Contraseña" })
+                        </div>
+                    </div>
+                    
+                    <!--! DATOS PERSONALES -->
+                    <div class="col-md-12 mt-3">
+                        <h5 class="mb-4">Datos Personales</h5>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.name, new { @class = "form-control", @placeholder = "Nombre" })
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.last_names, new { @class = "form-control", @placeholder = "Apellidos" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.rut, new { @class = "form-control", @placeholder = "Rut" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.adress, new { @class = "form-control", @placeholder = "Dirección" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.phone, new { @class = "form-control", @placeholder = "Teléfono" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker", @Value = string.Empty , @placeholder = "Fecha de Nacimiento" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="submit" value="Registrarse" class="btn btn-primary">
+                            <div class="submitting"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+@section customScripts{
+    @Html.Partial("Partial/_DatePickerBoilerplate")
+}
