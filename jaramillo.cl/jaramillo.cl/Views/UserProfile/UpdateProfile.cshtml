@@ -1,0 +1,109 @@
+﻿@model jaramillo.cl.Models.APIModels.Usuario
+
+@{
+    ViewBag.Title = "UpdateProfile";
+
+    var goBackURL =  Url.Action("Profile", "UserProfile");
+}
+
+<h2 class="mb-4 ftco-animate"> Actualizar tus Datos </h2>
+
+<div class="row mb-5">
+
+    <div class="col-3 ftco-animate">
+        @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
+    </div>
+
+    <div class="col-9 ftco-animate px-4">
+
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(m => m.appuser_id)
+
+            <!-- FORM -->
+            <div class="col-md-12">
+                <table class="edit-data-table">
+                    <!-- NOMBRE COMPLETO -->
+                    <tr>
+                        <th class="cell-compact">
+                            @Html.DisplayNameFor(m => m.fullName) Completo
+                        </th>
+                        <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.name)
+                                </div>
+                                <div class="col-6">
+                                    @Html.TextBoxFor(m => m.last_names, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.last_names)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- RUT -->
+                    <tr>
+                        <th class="cell-compact">
+                            @Html.DisplayNameFor(m => m.rut)
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(m => m.rut, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.rut)
+                        </td>
+                    </tr>
+                    <!-- DIRECCION -->
+                    <tr>
+                        <th class="cell-compact">
+                            @Html.DisplayNameFor(m => m.adress)
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(m => m.adress, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.adress)
+                        </td>
+                    </tr>
+                    <!-- TELÉFONO -->
+                    <tr>
+                        <th class="cell-compact">
+                            @Html.DisplayNameFor(m => m.phone)
+                        </th>
+                        <td>
+                            @Html.TextBoxFor(m => m.phone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.phone)
+                        </td>
+                    </tr>
+                    <!-- FECHA DE NACIMIENTO -->
+                    <tr>
+                        <th class="cell-compact">
+                            @Html.DisplayNameFor(m => m.birthday)
+                        </th>
+                        <td>
+                            @{ 
+                                var bd = Model.birthday.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                            }
+
+                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker", @Value =  bd })
+                            @Html.ValidationMessageFor(x => x.birthday)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        
+            <!-- BUTTONS -->
+            <div class="col-md-12 mt-4">
+
+                <a href="@goBackURL" class="btn btn-secondary mr-3">Cancelar</a>
+                <input type="submit" class="btn btn-primary mr-3" value="Actualizar">
+
+                <div class="submitting"></div>
+            </div>
+        }
+
+
+    </div>
+
+</div>
+
+
+@section customScripts{
+    @Html.Partial("Partial/_DatePickerBoilerplate")
+}

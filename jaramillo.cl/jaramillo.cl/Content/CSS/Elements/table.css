@@ -1,0 +1,21 @@
+﻿/* Make a cell just wide enough fo fit its content */
+.cell-compact {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 1rem !important;
+}
+
+.data-table{
+    font-size: 18px;
+}
+.data-table tr {
+    line-height: 2rem;
+}
+
+
+.edit-data-table {
+    font-size: 18px;
+}
+.edit-data-table tr {
+    line-height: 3rem;
+}

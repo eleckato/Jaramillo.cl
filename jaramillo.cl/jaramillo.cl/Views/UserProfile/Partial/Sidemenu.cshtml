@@ -1,0 +1,39 @@
+﻿@{ 
+    var action = ViewContext.RouteData.Values["action"];
+
+    var profileURL = Url.Action("Profile", "UserProfile");
+    var updateProfileURL = Url.Action("UpdateProfile", "UserProfile");
+    var appointmentURL = Url.Action("CheckAppointment", "UserProfile");
+    var changePsw = Url.Action("ChangePassword", "UserProfile");
+}
+
+<div class="sidebar-box">
+    <div class="categories">
+        <h3 class="font-weight-bold">Services</h3>
+
+        <li class="@(action.Equals("Profile") ? "active" : "")">
+            <a href="@profileURL">
+                Perfil <span class="fa fa-chevron-right"></span>
+            </a>
+        </li>
+
+        <li class="@(action.Equals("CheckAppointment") ? "active" : "")">
+            <a href="@appointmentURL">
+                Horas Agendadas <span class="fa fa-chevron-right"></span>
+            </a>
+        </li>
+
+        <li class="@(action.Equals("UpdateProfile") ? "active" : "")">
+            <a href="@updateProfileURL">
+                Actualizar Datos <span class="fa fa-chevron-right"></span>
+            </a>
+        </li>
+
+        <li class="@(action.Equals("ChangePassword") ? "active" : "")">
+            <a href="@changePsw">
+                Cambiar Contraseña <span class="fa fa-chevron-right"></span>
+            </a>
+        </li>
+
+    </div>
+</div>

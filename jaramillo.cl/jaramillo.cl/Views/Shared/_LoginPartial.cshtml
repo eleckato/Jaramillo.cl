@@ -1,22 +1,37 @@
 ﻿@using Microsoft.AspNet.Identity
+@{ 
+    
+    string loginURL = Url.Action("Login", "Account");
+    string singupURL = Url.Action("RegisterClient", "Account");
+    string perfilURL = Url.Action("Profile", "UserProfile");
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-sm px-3 dropdown-toggle" type="button" id="login-dw"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @User.Identity.GetUserName()
+            </button>
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+
+            <div class="dropdown-menu login-dw-box" aria-labelledby="login-dw">
+                <a class="dropdown-item" href="@perfilURL">Perfil</a>
+                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+            </div>
+        </div>
+
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <a role="button" href="@singupURL" class="btn btn-primary mr-3">
+        Registrarme
+    </a>
+    <a role="button" href="@loginURL" class="btn btn-secondary">
+        Iniciar Sesión
+    </a>
 }

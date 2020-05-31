@@ -33,6 +33,7 @@ namespace jaramillo.cl
                       "~/Content/flaticon.css", 
                       "~/Content/owl.carousel.min.css",  // Owl Carousel
                       "~/Content/animate.css", 
+                      "~/Content/CSS/Elements/table.css", 
                       "~/Content/Site.css" // Site-wide styles
                       ));
 

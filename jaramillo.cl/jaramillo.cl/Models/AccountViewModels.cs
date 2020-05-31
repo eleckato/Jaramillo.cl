@@ -50,12 +50,12 @@ namespace jaramillo.cl.Models
     {
         [Required]
         [Display(Name = "Nombre de Usuario")]
-        public string Username { get; set; }
+        public string LoginUsername { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
-        public string Password { get; set; }
+        public string LoginPassword { get; set; }
 
         [Display(Name = "Mantener Sesión Iniciada")]
         public bool RememberMe { get; set; }

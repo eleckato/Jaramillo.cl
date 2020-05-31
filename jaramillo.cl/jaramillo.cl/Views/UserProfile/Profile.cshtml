@@ -1,0 +1,49 @@
+﻿@model jaramillo.cl.Models.APIModels.Usuario
+@{
+    ViewBag.Title = "Perfil de Usuario";
+}
+
+<h2 class="mb-4 ftco-animate"> Perfil de Usuario </h2>
+
+<div class="row mb-5">
+
+    <div class="col-3 ftco-animate">
+        @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
+    </div>
+
+    <div class="col-9 ftco-animate px-4">
+
+        <table class="data-table">
+            <tr>
+                <th class="cell-compact">Username</th>
+                <td>@Model.username</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Mail</th>
+                <td>@Model.email</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Nombre Completo</th>
+                <td>@Model.fullName</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Rut</th>
+                <td>@Model.rut</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Dirección</th>
+                <td>@Model.adress</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Teléfono</th>
+                <td>@Model.phone</td>
+            </tr>
+            <tr>
+                <th class="cell-compact">Fecha de Nacimiento</th>
+                <td>@Model.birthday</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>

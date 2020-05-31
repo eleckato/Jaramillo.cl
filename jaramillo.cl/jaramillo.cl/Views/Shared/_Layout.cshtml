@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@{
+﻿@{
     // Current controller in action
     var controller = ViewContext.RouteData.Values["controller"];
     var action = ViewContext.RouteData.Values["action"];
@@ -10,15 +9,12 @@
     string success = (string)TempData["SuccessMessage"] ?? "";
 
     // URLs
-    string loginURL = Url.Action("Login", "Account");
     string aboutURL = Url.Action("About", "Home");
     string teamURL = "#";
     string servURL = "#";
     string contactURL = Url.Action("Contact", "Home");
 
 
-    string singupURL = Url.Action("RegisterClient", "Account");
-    string perfilURL = "#";
 }
 
 <!DOCTYPE html>
@@ -66,36 +62,7 @@
                         <div class="col-md-6 d-flex justify-content-end align-items-center">
                             <div role="button" class="social-media">
 
-
-                                @if (Request.IsAuthenticated)
-                                {
-                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary btn-sm px-3 dropdown-toggle" type="button" id="login-dw"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                @User.Identity.GetUserName()
-                                            </button>
-
-
-                                            <div class="dropdown-menu login-dw-box" aria-labelledby="login-dw">
-                                                <a class="dropdown-item" href="@perfilURL">Perfil</a>
-                                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
-                                            </div>
-                                        </div>
-
-                                    }
-                                }
-                                else
-                                {
-                                    <a role="button" href="@singupURL" class="btn btn-primary mr-3">
-                                        Registrarme
-                                    </a>
-                                    <a role="button" href="@loginURL" class="btn btn-secondary">
-                                        Iniciar Sesión
-                                    </a>
-                                }
+                                @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
 
                             </div>
                         </div>

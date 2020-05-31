@@ -84,7 +84,7 @@ namespace jaramillo.cl.Controllers
              * LockedOut                Invalid Username
              * RequiresVerification     Invalid Credentials
              */
-            SignInStatus result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
+            SignInStatus result = await SignInManager.PasswordSignInAsync(model.LoginUsername, model.LoginPassword, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {

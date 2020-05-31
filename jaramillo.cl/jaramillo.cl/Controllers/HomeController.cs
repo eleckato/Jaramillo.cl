@@ -23,5 +23,12 @@ namespace jaramillo.cl.Controllers
         {
             return View();
         }
+
+
+        [Route("pagina-no-encontrada")]
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
