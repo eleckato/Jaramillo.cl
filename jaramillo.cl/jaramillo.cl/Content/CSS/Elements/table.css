@@ -9,7 +9,10 @@
     font-size: 18px;
 }
 .data-table tr {
-    line-height: 2rem;
+    line-height: 3rem !important;
+}
+.data-table th {
+    padding-right: 1rem;
 }
 
 

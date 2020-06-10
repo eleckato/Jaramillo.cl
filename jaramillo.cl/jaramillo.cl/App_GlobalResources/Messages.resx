@@ -145,4 +145,8 @@
     <value>La URL solicitada es invalida.</value>
     <comment>Error cuando una URL no está bien formada o tiene argumentos invalidos</comment>
   </data>
+  <data name="StringNotFound" xml:space="preserve">
+    <value>Dato no encontrado</value>
+    <comment>Para datos que deberían existir pero no fueron encontrados. Si el dato no encontrado es opcional, usar un "-"</comment>
+  </data>
 </root>

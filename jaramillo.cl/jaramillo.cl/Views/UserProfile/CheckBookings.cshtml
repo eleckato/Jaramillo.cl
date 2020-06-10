@@ -1,0 +1,127 @@
+﻿@model List<jaramillo.cl.Models.APIModels.BookingVM>
+@{
+    ViewBag.Title = "Revisar Reservad";
+}
+
+<h2 class="mb-4 ftco-animate"> Reservas </h2>
+
+
+<div class="row mb-5">
+    
+    <div class="col-12 col-md-3 ftco-animate">
+        @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
+    </div>
+    
+    <div class="col-12 col-md-9 ftco-animate px-4">
+
+        @foreach (var book in Model)
+        {
+            var bookId = book.booking_id;
+
+            <div class="border p-3 mb-3 hover-container">
+
+                <table class="data-table mb-3 d-none d-md-table">
+                    <tr>
+                        <th>Servicio</th>
+                        <td>@(book.servName)</td>
+                    </tr>
+                    <tr>
+                        <th>Horario</th>
+                        <td>@(book.schedule)</td>
+                    </tr>
+                </table>
+
+                <div class="mb-3 d-block d-md-none">
+                    <label class="font-weight-bold">Servicio</label>
+                    <p>@(book.servName)</p>
+                    <label class="font-weight-bold">Horario</label>
+                    <p>@(book.schedule)</p>
+                </div>
+
+                <div class="ml-auto">
+                    <a class="btn btn-sm btn-primary mr-3 mb-3 mb-sm-0" role="button" 
+                       data-toggle="modal" data-book-id="@bookId" href="#reschedule-book-modal" >
+                        <i class="fa fa-history"></i>
+                        Reagendar
+                    </a>
+                    <a class="btn btn-sm btn-danger mb-3 mb-sm-0" role="button"
+                       data-toggle="modal" data-book-id="@bookId" href="#cancel-modal">
+                        <i class="fa fa-times"></i>
+                        Cancelar Hora
+                    </a>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+<div id="reschedule-book-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+
+
+        </div>
+    </div>
+</div>
+@Html.Partial("Partial/_cancelBookModal")
+
+
+
+<script>
+    
+    WaitForJquery(function () {
+        // Llena la lista de servicios sacando los items en el listado y preguntando a la API
+        $(document).on('show.bs.modal', '#reschedule-book-modal', function (event) {
+
+            var button = $(event.relatedTarget)
+
+            // Extract the userId
+            var bookId = button.data('book-id')
+
+            let cont = $('#reschedule-book-modal .modal-content');// Button that triggered the modal
+
+            let url = '@(Url.Action("GetRescheduleBookModalHtml", "UserProfile", new { bookId = "replace_this_id" } ))';
+
+            url = url.replace("replace_this_id", bookId);
+            var data = {
+                "restId": bookId
+            }
+
+            // Load HTML into the #item-list
+            var res = cont.load(url, data, function (responseText, textStatus, jqXHR) {
+                checkHtmlLoad(responseText, textStatus, res);
+            });
+
+        });
+    });
+
+    
+    // Check if the AJAX HTML load of an element is successful and take some actions
+    function checkHtmlLoad(responseText, textStatus, res, backup_item_list) {
+
+        // if the request fails
+        if (textStatus == "error") {
+            ShowMessage("Internal Error", [responseText]);
+            ShowAlert("Hubo un error comunicandose con el servidor, por favor intente de nuevo.",);
+        }
+        else {
+
+            // if something fail on server
+            if (responseText.startsWith('ERROR:')) {
+
+                ShowAlert("Internal Error", [responseText])
+
+            // if everything goes cool and dandy
+            } else {
+                
+            }
+        }
+
+    }
+
+</script>

@@ -7,13 +7,13 @@
 
 <div class="row mb-5">
 
-    <div class="col-3 ftco-animate">
+    <div class="col-12 col-md-3 ftco-animate">
         @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
     </div>
 
-    <div class="col-9 ftco-animate px-4">
-
-        <table class="data-table">
+    <div class="col-12 col-md-9 ftco-animate px-4">
+        
+        <table class="data-table d-none d-md-table">
             <tr>
                 <th class="cell-compact">Username</th>
                 <td>@Model.username</td>
@@ -43,6 +43,24 @@
                 <td>@Model.birthday</td>
             </tr>
         </table>
+
+        
+        <div class="mb-3 d-block d-md-none">
+            <label class="font-weight-bold m-0">Username</label>
+            <p>@(Model.username)</p>
+            <label class="font-weight-bold m-0">Mail</label>
+            <p>@(Model.email)</p>
+            <label class="font-weight-bold m-0">Nombre Completo</label>
+            <p>@(Model.fullName)</p>
+            <label class="font-weight-bold m-0">Rut</label>
+            <p>@(Model.rut)</p>
+            <label class="font-weight-bold m-0">Dirección</label>
+            <p>@(Model.adress)</p>
+            <label class="font-weight-bold m-0">Teléfono</label>
+            <p>@(Model.phone)</p>
+            <label class="font-weight-bold m-0">Fecha de Nacimiento</label>
+            <p>@(Model.birthday)</p>
+        </div>
 
     </div>
 

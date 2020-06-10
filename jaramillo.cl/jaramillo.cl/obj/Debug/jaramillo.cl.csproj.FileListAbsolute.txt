@@ -101,7 +101,7 @@ C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\bin\System.We
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\bin\System.Web.WebPages.Razor.xml
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\bin\Antlr3.Runtime.pdb
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\obj\Debug\jaramillo.cl.csprojAssemblyReference.cache
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\obj\Debug\jaramillo.cl.csproj.CopyComplete
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\obj\Debug\jaramillo.cl.dll
 C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\obj\Debug\jaramillo.cl.pdb
+C:\C_Dctos\PORTAFOLIO\repos\Jaramillo.cl\jaramillo.cl\jaramillo.cl\obj\Debug\jaramillo.cl.csprojAssemblyReference.cache

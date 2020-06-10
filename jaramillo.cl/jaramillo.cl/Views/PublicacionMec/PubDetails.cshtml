@@ -1,0 +1,93 @@
+﻿@model jaramillo.cl.Models.APIModels.PublicacionMec
+@using jaramillo.cl.Models.APIModels;
+@{
+    ViewBag.Title = "Detalles";
+    var user = (Usuario)ViewBag.User;
+
+    var goBackURL = Url.Action("PubList", "PublicacionMec");
+}
+
+<div class="shadow p-4">
+    <div class="row mx-3">
+            
+        <!-- TITULO -->
+        <div class="w-max-content ftco-animate">
+            <h1 class="color-orange"> @Model.title </h1>
+            <h4 class="mb-3"><strong>Publicada</strong> @Model.created_at.ToString("dd/MM/yyyy")</h4>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="ml-md-auto mb-3 mb-md-0 ftco-animate">
+                
+            <a role="button" class="btn btn-secondary mr-3" href="@goBackURL">
+                <i class="fa fa-caret-left"></i>
+                Volver
+            </a>
+
+            <a role="button" class="btn btn-primary" href="#modal-mail" data-toggle="modal">
+                <i class="fa fa-paper-plane"></i>
+                Contactar
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- DESCIPCIÓN -->
+        <div class="col-12 col-lg-7 ftco-animate pr-3">
+
+            <div class="border mb-3 px-4 py-3 text-justify">
+
+                <p>@Model.public_desc</p>
+
+                <h3 class="mb-1"><strong>Servicios</strong></h3>
+
+                <p>@Model.services</p>
+
+            </div>
+
+        </div>
+
+        <!-- INFO DE CONTACTO -->
+        <div class="col-12 col-lg-5 ftco-animate">
+
+            <div class="border mb-3 px-4 py-3 text-justify">
+
+                <h3 class="mb-1"><strong>Contacto</strong></h3>
+
+                @if (!Model.mobile_number.Equals("0"))
+                {
+                    <p class="mb-0"><strong>Celular</strong> @Model.mobile_number </p>
+                }
+
+                @if (!Model.landline.Equals("0"))
+                {
+                    <p class="mb-0"><strong>Teléfono Fijo</strong> @Model.landline </p>
+                }
+
+                <p><strong>Email</strong> @Model.email</p>
+
+                <h3 class="mb-1"><strong>Dirección</strong></h3>
+                <p>@Model.address</p>
+
+                <h3 class="mb-1"><strong>Horario</strong></h3>
+                <p>@Model.schedule</p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@try
+{
+    @Html.Partial("Partial/_mailModal", new jaramillo.cl.Models.ViewModels.MechMailVM() { email = user.email, user = user.fullName })
+}
+catch (Exception)
+{
+    <h3>Modal Not Found</h3>
+}

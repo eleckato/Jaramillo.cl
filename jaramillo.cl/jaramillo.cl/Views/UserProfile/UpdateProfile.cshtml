@@ -9,12 +9,12 @@
 <h2 class="mb-4 ftco-animate"> Actualizar tus Datos </h2>
 
 <div class="row mb-5">
-
-    <div class="col-3 ftco-animate">
+    
+    <div class="col-12 col-md-3 ftco-animate">
         @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
     </div>
-
-    <div class="col-9 ftco-animate px-4">
+    
+    <div class="col-12 col-md-9 ftco-animate px-4">
 
         @using (Html.BeginForm())
         {
@@ -22,7 +22,7 @@
 
             <!-- FORM -->
             <div class="col-md-12">
-                <table class="edit-data-table">
+                <table class="data-table d-none d-md-table">
                     <!-- NOMBRE COMPLETO -->
                     <tr>
                         <th class="cell-compact">
@@ -30,11 +30,11 @@
                         </th>
                         <td>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(x => x.name)
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-md-6">
                                     @Html.TextBoxFor(m => m.last_names, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(x => x.last_names)
                                 </div>
@@ -86,6 +86,50 @@
                         </td>
                     </tr>
                 </table>
+
+                
+                <div class="mb-3 d-block d-md-none">
+                    <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.fullName) Completo</label>
+                    <div class="row mb-2">
+                        <div class="col-12 col-md-6">
+                            @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.name)
+                        </div>
+                        <div class="col-12 col-md-6">
+                            @Html.TextBoxFor(m => m.last_names, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.last_names)
+                        </div>
+                    </div>
+
+                    <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.rut)</label>
+                    <div class="row mb-2">
+                        @Html.TextBoxFor(m => m.rut, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.rut)
+                    </div>
+
+                    <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.adress)</label>
+                    <div class="row mb-2">
+                            @Html.TextBoxFor(m => m.adress, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.adress)
+                    </div>
+
+                    <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.phone)</label>
+                    <div class="row mb-2">
+                            @Html.TextBoxFor(m => m.adress, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.adress)
+                    </div>
+
+                    <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.birthday)</label>
+                    <div class="row mb-2">
+                            @{ 
+                                bd = Model.birthday.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                            }
+                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker", @Value =  bd })
+                            @Html.ValidationMessageFor(x => x.birthday)
+                    </div>
+
+                </div>
+
             </div>
         
             <!-- BUTTONS -->

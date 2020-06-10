@@ -13,6 +13,34 @@ namespace jaramillo.cl.APICallers
     {
         private readonly string prefix = "user-adm";
 
+        // TODO Pagination
+        /// <summary>
+        /// API call to list all Users
+        /// </summary>
+        public IEnumerable<Usuario> GetAllUsers(string userName, string userRut, string userTypeId, string userStatusId, bool deleted = false)
+        {
+            try
+            {
+                var delString = deleted ? "&deleted=true" : "";
+                var url = $"{prefix}/users?username={userName}&rut={userRut}&user_type_id={userTypeId}&status_id={userStatusId}{delString}";
+
+                var request = new RestRequest(url, Method.GET)
+                {
+                    RequestFormat = DataFormat.Json
+                };
+
+                var response = client.Execute<List<Usuario>>(request);
+
+                CheckStatusCode(response);
+
+                return response.Data;
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                throw e;
+            }
+        }
 
         /// <summary>
         /// API call to get an User

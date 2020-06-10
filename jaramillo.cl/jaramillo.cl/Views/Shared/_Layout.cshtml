@@ -11,7 +11,8 @@
     // URLs
     string aboutURL = Url.Action("About", "Home");
     string teamURL = "#";
-    string servURL = "#";
+    string servURL = Url.Action("ServList", "BookServ");
+    string mechanicsURL = Url.Action("PubList", "PublicacionMec");
     string contactURL = Url.Action("Contact", "Home");
 
 
@@ -25,10 +26,14 @@
     <title>@ViewBag.Title - Jaramillo </title>
     <!-- ContentCSS -->
     @Styles.Render("~/ContentCSS")
+    @Styles.Render("~/Content/mtr-datepicker.min.css")
+    @Styles.Render("~/Content/mtr-datepicker.default-theme.min.css")
+
     <!-- modernizr -->
     @Scripts.Render("~/bundles/modernizr")
     <!-- HeadScrips -->
     @Scripts.Render("~/HeadScrips")
+    @Scripts.Render("~/Scripts/mtr-datepicker.min.js")
 
 </head>
 <body>
@@ -83,11 +88,13 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
                     <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")"><a href="@aboutURL" class="nav-link">Sobre Nosotros</a></li>
-                    <li class="nav-item"><a href="@teamURL" class="nav-link">Equipo</a></li>
-                    <li class="nav-item"><a href="@servURL" class="nav-link">Servicios</a></li>
+                    @*<li class="nav-item"><a href="@teamURL" class="nav-link">Equipo</a></li>*@
+                    <li class="nav-item"><a href="@mechanicsURL" class="nav-link">Mecánicos</a></li>
+                    <li class="nav-item @(loc.Equals("BookServ|ServList") ? "active" : "")" ><a href="@servURL" class="nav-link">Servicios</a></li>
                     <li class="nav-item @(loc.Equals("Contact|Home") ? "active" : "")"><a href="@contactURL" class="nav-link">Contacto</a></li>
                 </ul>
             </div>
+
         </div>
     </nav>
 
@@ -165,6 +172,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     <!-- Jquery Validation 1.19.1 -->
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/moment.js")
+    <!-- Tempos Dominus Bootstrap 4 -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+
     <!-- Site wide custom Scripts  -->
     @Scripts.Render("~/MainScripts")
 
@@ -208,7 +221,22 @@
 	        }
 		    });
 	    };
-	    carousel();
+        carousel();
+        
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'fa fa-clock',
+                date: 'fa fa-calendar',
+                up: 'fa fa-arrow-up',
+                down: 'fa fa-arrow-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-calendar-check-o',
+                clear: 'fa fa-trash',
+                close: 'fa fa-times'
+            },
+        });
+
     </script>
 </body>
 </html>

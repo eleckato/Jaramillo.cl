@@ -1,0 +1,64 @@
+﻿@* Just make a button these attributes and done
+    data-toggle="modal" href="#cancel-modal" data-book-id="{bookId}"
+*@
+
+@{ 
+    string cancelURL = Url.Action("CancelBook", "UserProfile", new { bookId = "replace_this_id" });
+}
+
+<div id="cancel-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Advertencia
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>¿Seguro/a que desea cancelar esta Reserva?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+                    <i class="fa fa-backspace" aria-hidden="true"></i>
+                    <span>Volver</span>
+                </button>
+
+                <a id="modal-cancel-btn" href="#" role="button" class="btn btn-sm btn-danger">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    Cancelar Reserva
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    {
+        WaitForJquery( function() {
+            $(document).on('show.bs.modal', '#cancel-modal', function (event) {
+
+                // Button that triggered the modal
+                var button = $(event.relatedTarget)
+
+                // Extract the userId
+                var bookId = button.data('book-id')
+
+                // Get the actual cancel button from the modal
+                var canBtn = $(this).find('#modal-cancel-btn');
+
+                let url = '@cancelURL'.replace('replace_this_id', bookId);
+
+                canBtn.attr('href', value = url);
+
+            });
+        });
+    }
+</script>

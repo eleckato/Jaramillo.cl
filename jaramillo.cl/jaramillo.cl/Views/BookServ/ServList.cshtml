@@ -1,0 +1,48 @@
+﻿@model List<jaramillo.cl.Models.APIModels.Servicio>
+
+@{
+    ViewBag.Title = "Servicios";
+}
+
+<div class="shadow p-4">
+    <h1 class="mb-4 ftco-animate color-orange"> Servicios </h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-11">
+
+            @foreach (var serv in Model)
+            {
+                var servDetailsURL = Url.Action("ServDetails", "BookServ", new { servId = serv.serv_id });
+
+                
+                <div class="serv-container border mb-3 p-3 ftco-animate">
+
+                    <div class="row p-0 m-0">
+                        <h2 class="color-orange">@serv.name</h2>
+                        <p class="ml-auto color-orange">@serv.priceString</p>
+                    </div>
+
+                    <div class="text-justify mb-2">
+                        <p class="m-0">@serv.serv_desc</p>
+                    </div>
+
+                    <a href="@servDetailsURL" role="button" class="btn btn-primary">
+                        <i class="fa fa-tools"></i>
+                        Ver Detalles
+                    </a>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+</div>
+
+
+<style>
+    .serv-container:hover{
+        background: #fef3dd;
+    }
+</style>

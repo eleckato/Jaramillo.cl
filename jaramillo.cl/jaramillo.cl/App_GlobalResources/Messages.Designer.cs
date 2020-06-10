@@ -122,5 +122,14 @@ namespace Resources {
                 return ResourceManager.GetString("Error_URLInvalida", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dato no encontrado.
+        /// </summary>
+        internal static string StringNotFound {
+            get {
+                return ResourceManager.GetString("StringNotFound", resourceCulture);
+            }
+        }
     }
 }

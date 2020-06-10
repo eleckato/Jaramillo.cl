@@ -1,0 +1,56 @@
+﻿@model List<jaramillo.cl.Models.APIModels.PublicacionMec>
+
+@{
+    ViewBag.Title = "Mecánicos";
+}
+<div class="shadow p-4">
+    <h1 class="mb-4 ftco-animate color-orange"> Mecánicos </h1>
+
+    <div class="row">
+
+        <div class="col-11">
+
+            @foreach (var pub in Model)
+            {
+                var pubDetailsURL = Url.Action("PubDetails", "PublicacionMec", new { pubId = pub.public_id });
+
+                <div class="pub-container border mb-3 px-4 py-2 ftco-animate">
+
+                    <div>
+                        <h2 class="color-orange">@pub.title</h2>
+                        <h4 class="mb-3"><strong>Publicada</strong> @pub.created_at.ToString("dd/MM/yyyy")</h4>
+
+                        <p class="mb-1"><strong>Dirección</strong> @pub.address - @pub.comuna, @pub.region</p>
+                        <p class="mb-1"><strong>Empresa</strong> @pub.bussiness_name</p>
+
+                        @if (!pub.mobile_number.Equals("0"))
+                        {
+                            <p><strong>Celular</strong> @pub.mobile_number</p>
+                        }
+
+                        @if (!pub.landline.Equals("0"))
+                        {
+                            <p><strong>Teléfono Fijo</strong> @pub.landline</p>
+                        }
+
+                    </div>
+
+                    <a href="@pubDetailsURL" role="button" class="btn btn-primary">
+                        <i class="fa fa-tools"></i>
+                        Ver Publicación
+                    </a>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .pub-container:hover{
+        background: #fef3dd;
+    }
+</style>

@@ -6,14 +6,13 @@ using System.Web.Mvc;
 
 namespace jaramillo.cl.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
         public ActionResult About()
         {
             return View();

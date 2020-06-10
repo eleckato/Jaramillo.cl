@@ -1,0 +1,77 @@
+﻿@model jaramillo.cl.Models.APIModels.Servicio
+@using jaramillo.cl.Models.APIModels;
+@{
+    ViewBag.Title = "Detalles";
+
+    var newBooking = (BookingVM)ViewBag.newBooking;
+
+    var goBackURL = Url.Action("ServList", "BookServ");
+}
+
+
+<div class="shadow p-4">
+
+    <div class="row mx-3 mb-3">
+        
+        <!-- TITLE -->
+        <h1 class="color-orange"> @Model.name </h1>
+        
+        <!-- ACTION BUTTONS -->
+        <div class="ml-md-auto mb-3 mb-md-0 ftco-animate">
+                
+            <a role="button" class="btn btn-secondary mr-3" href="@goBackURL">
+                <i class="fa fa-caret-left"></i>
+                Volver
+            </a>
+
+            @if(User.Identity.IsAuthenticated && User.IsInRole("CLI"))
+            {
+                <a role="button" class="btn btn-primary" href="#update-store-sche-modal" data-toggle="modal">
+                    <i class="fa fa-clock"></i>
+                    Agendar Hora
+                </a>
+            }
+
+        </div>
+        
+    </div>
+
+    
+    <div class="row">
+        
+        <!-- DESCIPCIÓN -->
+        <div class="col-12 col-lg-7 ftco-animate">
+            <div class="mb-3 mx-3">
+
+                <p>@Model.serv_desc</p>
+                
+            </div>
+        </div>
+        
+        <!-- INFO DE CONTACTO -->
+        <div class="col-12 col-lg-5 ftco-animate">
+            <div class="border mb-3 px-4 py-3 text-justify">
+                
+                <h3 class="mb-1"><strong>Precio</strong></h3>
+
+                <p>@Model.priceString</p>
+                
+                <h3 class="mb-1"><strong>Tiempo</strong></h3>
+
+                <p>@Model.timeString</p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@try
+{
+    @Html.Partial("Partial/_bookServModal", newBooking)
+}
+catch (Exception)
+{
+    <h3>Modal Not Found</h3>
+}

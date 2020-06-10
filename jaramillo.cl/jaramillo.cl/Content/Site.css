@@ -35,6 +35,27 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+/* ---------------------------------------------------------------- */
+
+.color-orange {
+    color: var(--orange);
+}
+
+.mtr-row{
+    margin-right: 1rem;
+}
+
+.hover-container:hover {
+    background: #fef3dd;
+}
+
+.bootstrap-datetimepicker-widget .fa {
+    color: black !important;
+}
+
+
+/* ---------------------------------------------------------------- */
+
 *,
 *::before,
 *::after {
@@ -56,7 +77,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
@@ -360,27 +381,27 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1, .h1 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
 }
 
 h2, .h2 {
-    font-size: 2rem;
-}
-
-h3, .h3 {
-    font-size: 1.75rem;
-}
-
-h4, .h4 {
     font-size: 1.5rem;
 }
 
+h3, .h3 {
+    font-size: 1.1rem;
+}
+
+h4, .h4 {
+    font-size: 0.8rem;
+}
+
 h5, .h5 {
-    font-size: 1.25rem;
+    font-size: 0.7rem;
 }
 
 h6, .h6 {
-    font-size: 1rem;
+    font-size: 0.6rem;
 }
 
 .lead {
@@ -11205,7 +11226,7 @@ a.text-dark:hover, a.text-dark:focus {
 body {
     font-family: "Poppins", Arial, sans-serif;
     background: #fff;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.8;
     font-weight: 400;
     color: gray;
@@ -11995,10 +12016,14 @@ h1, h2, h3, h4, h5,
     border-radius: 4px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
+}
+
+.btn i {
+    font-size: 16px;
 }
 
     .btn:hover, .btn:active, .btn:focus {
@@ -13536,7 +13561,6 @@ textarea.form-control {
 }
 
 .sidebar-box {
-    margin-bottom: 40px;
     font-size: 15px;
     width: 100%;
     float: left;
@@ -13706,4 +13730,62 @@ textarea.form-control {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -136px;
     }
+}
+
+.field-validation-error {
+    font-size: 15px;
+    margin-left: 0.25rem;
+    color: #e78f8f;
+}
+    .field-validation-error:before{
+        content: "* ";
+    }
+
+a i, button i {
+    margin-right: 0.25rem;
+}
+
+.w-max-content {
+    width: max-content;
+    min-width: unset !important;
+}
+
+/* SCREEN WIDTH > 579px */
+@media (min-width: 579px) {
+    .w-max-content-sm {
+        width: max-content;
+        min-width: unset !important;
+    }
+}
+/* SCREEN WIDTH > 768px */
+@media (min-width: 768px) {
+    .w-max-content-md {
+        width: max-content;
+        min-width: unset !important;
+    }
+}
+/* SCREEN WIDTH > 992px */
+@media (min-width: 992px) {
+    .w-max-content-lg {
+        width: max-content;
+        min-width: unset !important;
+    }
+}
+
+
+.row{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, 
+.col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, 
+.col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, 
+.col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, 
+.col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, 
+.col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, 
+.col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, 
+.col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    padding-right: 0px;
+    padding-left: 0px;
 }
