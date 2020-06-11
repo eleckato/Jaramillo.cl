@@ -198,6 +198,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\ErrorWriter.cs" />
+    <Compile Include="Common\Extensions\HtmlExtensions.cs" />
+    <Compile Include="Common\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Common\Extensions\ViewExtensions.cs" />
     <Compile Include="Common\FixedRequiredAttributeAdapter.cs" />
     <Compile Include="Common\PropertyCopier.cs" />
     <Compile Include="Common\ViewExtensions.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="Controllers\BookServController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicacionMecController.cs" />
+    <Compile Include="Controllers\PubMechController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -491,6 +495,10 @@
     <Content Include="Views\UserProfile\CheckBookings.cshtml" />
     <Content Include="Views\UserProfile\Partial\_rescheduleBookModal.cshtml" />
     <Content Include="Views\UserProfile\Partial\_cancelBookModal.cshtml" />
+    <Content Include="Views\PubMech\PubList.cshtml" />
+    <Content Include="Views\PubMech\PubDetails.cshtml" />
+    <Content Include="Views\PubMech\UpdatePub.cshtml" />
+    <Content Include="Views\PubMech\PayPub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

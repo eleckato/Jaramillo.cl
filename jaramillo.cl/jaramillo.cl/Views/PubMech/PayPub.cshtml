@@ -1,0 +1,85 @@
+﻿@model jaramillo.cl.Models.APIModels.PublicacionMec
+
+@{
+    ViewBag.Title = "Pagar Publicación";
+    
+    string goBackURL = Url.Action("PubDetails", "PubMech", new { pubId = Model.public_id });
+}
+
+<div class="shadow p-4">
+    <div class="row mx-3 mb-3">
+        
+        <!-- TITULO -->
+        <div class="w-max-content ftco-animate">
+            <h1 class="color-orange"> @Model.title </h1>
+        </div>
+
+        
+    </div>
+
+    
+    <div class="row">
+        
+        @using (Html.BeginForm())
+        {
+            @Html.Hidden("res", true);
+            @Html.Hidden("pubId", Model.public_id);
+
+            <div class="col-12 ftco-animate">
+                <div class="border mb-3 px-4 py-3 text-justify">
+                
+                    <div class="w-max-content">
+                        <label class="mb-0 font-weight-bold"> Empresa </label>
+                        <p>@Model.bussiness_name</p>
+                    </div>
+        
+                    <div class="w-max-content">
+                        <label class="mb-0 font-weight-bold"> Título </label>
+                        <p>@Model.title</p>
+                    </div>
+        
+                    <div class="w-max-content">
+                        <label class="mb-0 font-weight-bold"> Monto </label>
+                        <p>2UF / <span id="uf-val"></span></p>
+                    </div>
+
+                
+                    <div class="row">
+                
+                        <a href="@goBackURL" role="button" class="btn btn-secondary btn-sm mr-3">
+                            <i class="fa fa-backspace"></i>
+                            Volver
+                        </a>
+
+                        <button type="submit" class="btn btn-primary btn-sm mr-3">
+                            <i class="fa fa-tools"></i>
+                            Pagar
+                        </button>
+
+                    </div>
+                
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+</div>
+
+<script>
+
+    WaitForJquery(function () {
+        
+        $.getJSON('https://mindicador.cl/api', function(data) {
+            let dailyIndicators = data;
+
+            let uf = dailyIndicators.uf.valor;
+            $('#uf-val').text('$' + uf);
+
+        }).fail(function() {
+            console.log('Error al consumir la API!');
+        });
+    })
+
+</script>

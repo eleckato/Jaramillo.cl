@@ -87,6 +87,9 @@ namespace jaramillo.cl.APICallers
 
                 pub = ProcessPub(pub, pubStatusList, mechList);
 
+                if (pub.mobile_number?.Equals("0") ?? false) pub.mobile_number = null;
+                if (pub.landline?.Equals("0") ?? false) pub.landline = null;
+
                 return pub;
             }
             catch (Exception e)

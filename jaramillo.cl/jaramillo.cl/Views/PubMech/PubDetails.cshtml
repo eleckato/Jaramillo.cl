@@ -1,0 +1,170 @@
+﻿@model jaramillo.cl.Models.APIModels.PublicacionMec
+@{
+    ViewBag.Title = $"{Model.title} | Detalles";
+    
+    string pubId = Model.public_id;
+    string status = Model.public_status_id;
+    bool thereIsLandline = !string.IsNullOrEmpty(Model.landline);
+    string mechId = Model.appuser_id;
+    
+    string penId = "PEN"; // Pendiente
+    string actId = "ACT"; // Activa / Visible
+    string debId = "DEB"; // Debt / Con Deuda
+    string inaId = "INA"; // Inactiva / No visible
+    string rejId = "REJ"; // Rechazada
+
+    string goBackURL = Url.Action("PubList", "PubMech");
+    var hideURL = Url.Action("ChangePubStatus", "PubMech", new { pubId, newStatusId = "INA" });
+    var showURL = Url.Action("ChangePubStatus", "PubMech", new { pubId, newStatusId = "ACT" });
+    var updateURL = Url.Action("UpdatePub", "PubMech", new { pubId });
+    var payURL = Url.Action("PayPub", "PubMech", new { pubId });
+}
+
+
+
+<div class="shadow p-4">
+
+    <div class="row mx-3 mb-3">
+            
+        <!-- TITULO -->
+        <div class="w-max-content ftco-animate">
+            <h1 class="color-orange"> @Model.title </h1>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="ml-md-auto mb-3 mb-md-0 ftco-animate">
+                
+            <a role="button" class="btn btn-secondary btn-sm mr-3 mb-3 mb-sm-0" href="@goBackURL">
+                <i class="fa fa-caret-left"></i>
+                Volver
+            </a>
+            
+            <a href="@updateURL" role="button" class="btn btn-primary btn-sm mr-3 mb-3 mb-sm-0">
+                <i class="fa fa-edit"></i>
+                Editar
+            </a>
+
+            @if (status.Equals("ACT"))
+            {
+                <a href="@hideURL" role="button" class="btn btn-danger btn-sm mr-3 mb-3 mb-sm-0">
+                    <i class="fa fa-eye-slash"></i>
+                    Esconder
+                </a>
+            }
+
+            @if (status.Equals("INA"))
+            {
+                <a href="@showURL" role="button" class="btn btn-success btn-sm mr-3 mb-3 mb-sm-0">
+                    <i class="fa fa-eye"></i>
+                    Mostrar
+                </a>
+            }
+
+            @if (status.Equals("DEB"))
+            {
+                <a href="@payURL" role="button" class="btn btn-success btn-sm mr-3 mb-3 mb-sm-0">
+                    <i class="fa fa-credit-card"></i>
+                    Pagar Mensualidad
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        
+        <!-- DESCIPCIÓN -->
+        <div class="col-12 ftco-animate">
+
+            <div class="border mb-3 px-4 py-3 text-justify">
+                
+                @if (status != null)
+                {
+                    var statClass = "fa-exclamation-triangle color-red";
+                    var color = "color-red";
+
+                    if (status.Equals(actId))       { statClass = "fa-eye"; color = "text-success"; }
+                    else if (status.Equals(penId))  { statClass = "fa-hourglass-half"; color = "text-warning"; }
+                    else if (status.Equals(debId))  { statClass = "fa-money-bill"; color = "text-danger"; }
+                    else if (status.Equals(inaId))  { statClass = "fa-eye-slash"; color = "text-secondary";  }
+                    else if (status.Equals(rejId))  { statClass = "fa-times"; color = "text-danger";  }
+                    
+                    <div class="mb-3">
+                        <label class="mb-0 font-weight-bold"> Status </label>
+
+                        <div class="w-max-content row @color">
+
+                            <i class=" fa  @statClass d-flex align-items-center mr-2" aria-hidden="true"></i>
+                            @Model.status_name
+                        </div>
+                    </div>
+                }
+
+                <div class="w-max-content">
+                    <label class="mb-0 font-weight-bold">Fecha de Publicación</label>
+                    <p>@Model.created_at.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+
+                <div class="w-max-content">
+                    <label class="mb-0 font-weight-bold">Última Actualización</label>
+                    <p>@Model.updated_at.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    
+    <div class="row">
+
+        <!-- DESCIPCIÓN -->
+        <div class="col-12 col-lg-7 ftco-animate pr-3">
+
+            <div class="border mb-3 px-4 py-3 text-justify">
+
+                <p>@Model.public_desc</p>
+
+                <h3 class="mb-1"><strong>Servicios</strong></h3>
+
+                <p>@Model.services</p>
+
+            </div>
+
+        </div>
+
+        <!-- INFO DE CONTACTO -->
+        <div class="col-12 col-lg-5 ftco-animate">
+
+            <div class="border mb-3 px-4 py-3 text-justify">
+
+                <h3 class="mb-1"><strong>Contacto</strong></h3>
+
+                @if (!string.IsNullOrEmpty(Model.mobile_number))
+                {
+                    <p class="mb-0"><strong>Celular</strong> @Model.mobile_number </p>
+                }
+                
+                @if (!string.IsNullOrEmpty(Model.landline))
+                {
+                    <p class="mb-0"><strong>Teléfono Fijo</strong> @Model.landline </p>
+                }
+
+                <p><strong>Email</strong> @Model.email</p>
+
+                <h3 class="mb-1"><strong>Dirección</strong></h3>
+                <p>@Model.address</p>
+
+                <h3 class="mb-1"><strong>Horario</strong></h3>
+                <p>@Model.schedule</p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -8,13 +8,13 @@
 
     <div class="row">
 
-        <div class="col-11">
+        <div class="col-12 col-md-11">
 
             @foreach (var pub in Model)
             {
                 var pubDetailsURL = Url.Action("PubDetails", "PublicacionMec", new { pubId = pub.public_id });
 
-                <div class="pub-container border mb-3 px-4 py-2 ftco-animate">
+                <div class="pub-container border mb-3 px-4 py-2 mx-auto ftco-animate">
 
                     <div>
                         <h2 class="color-orange">@pub.title</h2>

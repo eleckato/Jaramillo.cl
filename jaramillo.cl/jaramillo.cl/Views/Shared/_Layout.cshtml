@@ -86,12 +86,35 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
-                    <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")"><a href="@aboutURL" class="nav-link">Sobre Nosotros</a></li>
-                    @*<li class="nav-item"><a href="@teamURL" class="nav-link">Equipo</a></li>*@
-                    <li class="nav-item"><a href="@mechanicsURL" class="nav-link">Mecánicos</a></li>
-                    <li class="nav-item @(loc.Equals("BookServ|ServList") ? "active" : "")" ><a href="@servURL" class="nav-link">Servicios</a></li>
-                    <li class="nav-item @(loc.Equals("Contact|Home") ? "active" : "")"><a href="@contactURL" class="nav-link">Contacto</a></li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            Inicio
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")">
+                        <a href="@aboutURL" class="nav-link">
+                            Sobre Nosotros
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item @(loc.Equals("PublicacionMec|PubList") ? "active" : "")">
+                        <a href="@mechanicsURL" class="nav-link">
+                            Mecánicos
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item @(loc.Equals("BookServ|ServList") ? "active" : "")" >
+                        <a href="@servURL" class="nav-link">
+                            Servicios
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item @(loc.Equals("Contact|Home") ? "active" : "")">
+                        <a href="@contactURL" class="nav-link">
+                            Contacto
+                        </a>
+                    </li>
                 </ul>
             </div>
 

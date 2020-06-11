@@ -19,8 +19,21 @@
 
 
             <div class="dropdown-menu login-dw-box" aria-labelledby="login-dw">
-                <a class="dropdown-item" href="@perfilURL">Perfil</a>
-                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+                <a class="dropdown-item" href="@perfilURL">
+                    Perfil
+                </a>
+
+                @if (User.IsInRole("MEC"))
+                {
+                    string mecPubURL = Url.Action("PubList", "PubMech");
+                    <a class="dropdown-item" href="@mecPubURL">
+                        Publicaciones
+                    </a>
+                    }
+
+                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">
+                    Cerrar Sesión
+                </a>
             </div>
         </div>
 

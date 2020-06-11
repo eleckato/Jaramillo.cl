@@ -24,7 +24,6 @@ namespace jaramillo.cl.Controllers
         {
             List<PublicacionMec> pubs;
 
-
             try
             {
                 pubs = PMC.GetAllPub(comuna, "ACT", bussName, pubTitle).ToList();
@@ -82,9 +81,10 @@ namespace jaramillo.cl.Controllers
         }
 
 
+        // TODO MANDAR MAIL AL MECÁNICO
         public ActionResult ContactMech(string user, string email, string message)
         {
-
+            //
 
             SetSuccessMsg("Mensaje Enviado con Éxito");
             return Redirect(GetReferer(Request));

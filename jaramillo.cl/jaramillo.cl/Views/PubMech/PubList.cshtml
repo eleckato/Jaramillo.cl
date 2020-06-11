@@ -1,0 +1,122 @@
+﻿@model List<jaramillo.cl.Models.APIModels.PublicacionMec>
+
+@{
+    ViewBag.Title = "Publicaciones";
+
+    
+    string penId = "PEN"; // Pendiente
+    string actId = "ACT"; // Activa / Visible
+    string debId = "DEB"; // Debt / Con Deuda
+    string inaId = "INA"; // Inactiva / No visible
+    string rejId = "REJ"; // Rechazada
+}
+
+
+<div class="shadow p-4">
+
+    <h1 class="mb-4 ftco-animate color-orange"> Publicaciones </h1>
+
+    <div class="row">
+        
+        <div class="col-12 col-md-11">
+
+            @foreach (var pub in Model)
+            {
+                var pubId = pub.public_id;
+
+                var pubDetailsURL = Url.Action("PubDetails", "PubMech", new { pubId });
+                var hideURL = Url.Action("ChangePubStatus", "PubMech", new { pubId, newStatusId = "INA" });
+                var showURL = Url.Action("ChangePubStatus", "PubMech", new { pubId, newStatusId = "ACT" });
+                var updateURL = Url.Action("UpdatePub", "PubMech", new { pubId });
+                var payURL = Url.Action("PayPub", "PubMech", new { pubId });
+                var status = pub?.public_status_id;
+
+                <div class="pub-container border mb-3 px-4 py-2 mx-auto ftco-animate">
+
+                    <div>
+                        <h2 class="color-orange mb-3">@pub.title</h2>
+                        
+                        <div class="row">
+                            
+                            @if (status != null)
+                            {
+                                var statClass = "fa-exclamation-triangle color-red";
+                                var color = "color-red";
+
+                                if (status.Equals(actId))       { statClass = "fa-eye"; color = "text-success"; }
+                                else if (status.Equals(penId))  { statClass = "fa-hourglass-half"; color = "text-warning"; }
+                                else if (status.Equals(debId))  { statClass = "fa-times"; color = "text-danger"; }
+                                else if (status.Equals(inaId))  { statClass = "fa-eye-slash"; color = "text-secondary";  }
+                                else if (status.Equals(rejId))  { statClass = "fa-times"; color = "text-danger";  }
+
+                                <div class="mb-3 mr-4">
+                                    <label class="font-weight-bold mb-0"> Status </label>
+
+                                    <div class="w-max-content row @color">
+
+                                        <i class=" fa  @statClass d-flex align-items-center mr-2" aria-hidden="true"></i>
+                                        @pub.status_name
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="mb-3 mr-4">
+                                <label class="font-weight-bold mb-0"> Empresa </label>
+                                <div class="w-max-content">
+                                    @pub.bussiness_name
+                                </div>
+                            </div>
+
+                            <div class="mb-3 mr-4">
+                                <label class="font-weight-bold mb-0"> Fecha de Publicación </label>
+                                <div class="w-max-content">
+                                    @pub.created_at.ToString("dd/MM/yyyy")
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="@pubDetailsURL" role="button" class="btn btn-primary btn-sm mr-3">
+                            <i class="fa fa-tools"></i>
+                            Ver Publicación
+                        </a>
+                        
+                        <a href="@updateURL" role="button" class="btn btn-primary btn-sm mr-3">
+                            <i class="fa fa-edit"></i>
+                            Editar
+                        </a>
+
+                        @if (status.Equals("ACT"))
+                        {
+                            <a href="@hideURL" role="button" class="btn btn-danger btn-sm">
+                                <i class="fa fa-eye-slash"></i>
+                                Esconder
+                            </a>
+                        }
+
+                        @if (status.Equals("INA"))
+                        {
+                            <a href="@showURL" role="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye"></i>
+                                Mostrar
+                            </a>
+                        }
+
+                        @if (status.Equals("DEB"))
+                        {
+                            <a href="@payURL" role="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-credit-card"></i>
+                                Pagar Mensualidad
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</div>
