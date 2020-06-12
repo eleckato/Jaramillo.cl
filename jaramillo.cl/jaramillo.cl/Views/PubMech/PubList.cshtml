@@ -9,12 +9,28 @@
     string debId = "DEB"; // Debt / Con Deuda
     string inaId = "INA"; // Inactiva / No visible
     string rejId = "REJ"; // Rechazada
+
+    string addURL = Url.Action("AddPub", "PubMech");
 }
 
 
 <div class="shadow p-4">
 
-    <h1 class="mb-4 ftco-animate color-orange"> Publicaciones </h1>
+    <!-- HEADER -->
+    <div class="row ftco-animate">
+        <!-- TITLE -->
+        <h1 class="mb-4 color-orange"> Publicaciones </h1>
+
+        <!-- BUTTONS -->
+        <div class="ml-auto">
+
+            <a href="@addURL" role="button" class="btn btn-primary btn-sm mr-3">
+                <i class="fa fa-newspaper"></i>
+                Solicitar Publicación
+            </a>
+
+        </div>
+    </div>
 
     <div class="row">
         
@@ -45,7 +61,7 @@
 
                                 if (status.Equals(actId))       { statClass = "fa-eye"; color = "text-success"; }
                                 else if (status.Equals(penId))  { statClass = "fa-hourglass-half"; color = "text-warning"; }
-                                else if (status.Equals(debId))  { statClass = "fa-times"; color = "text-danger"; }
+                                else if (status.Equals(debId))  { statClass = "fa-money-bill"; color = "text-danger"; }
                                 else if (status.Equals(inaId))  { statClass = "fa-eye-slash"; color = "text-secondary";  }
                                 else if (status.Equals(rejId))  { statClass = "fa-times"; color = "text-danger";  }
 

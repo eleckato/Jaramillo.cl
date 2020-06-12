@@ -85,7 +85,7 @@
 
 @try
 {
-    @Html.Partial("Partial/_mailModal", new jaramillo.cl.Models.ViewModels.MechMailVM() { email = user.email, user = user.fullName })
+    @Html.Partial("Partial/_mailModal", new jaramillo.cl.Models.ViewModels.MechMailVM() { email = user.email, user = user.fullName, publication = Model })
 }
 catch (Exception)
 {

@@ -98,6 +98,13 @@
                             <i class=" fa  @statClass d-flex align-items-center mr-2" aria-hidden="true"></i>
                             @Model.status_name
                         </div>
+
+                        @if (status.Equals(penId))
+                        {
+                            <p class="font-italic text-secondary small">
+                                Nuestro equipo se contactará contigo en cuanto aprueben tu solicitud
+                            </p>
+                        }
                     </div>
                 }
 
@@ -121,7 +128,7 @@
     <div class="row">
 
         <!-- DESCIPCIÓN -->
-        <div class="col-12 col-lg-7 ftco-animate pr-3">
+        <div class="col-12 col-lg-7 ftco-animate pr-0 pr-lg-3">
 
             <div class="border mb-3 px-4 py-3 text-justify">
 

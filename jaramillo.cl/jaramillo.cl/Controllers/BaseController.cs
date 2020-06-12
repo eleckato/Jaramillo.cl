@@ -82,6 +82,18 @@ namespace jaramillo.cl.Controllers
             return Redirect(referer);
         }
         /// <summary>
+        /// When an user try to get into a place they should not be
+        /// <para>Set the correct error message in TempData["ErrorMessage"] and return a safe place to redirect the User</para>
+        /// </summary>
+        public RedirectResult Error_Unauthorized(bool errorReferer = true)
+        {
+            SetErrorMsg(Resources.Messages.Error_Unauthorized);
+
+            string referer = errorReferer ? GetRefererForError(Request) : GetReferer(Request);
+
+            return Redirect(referer);
+        }
+        /// <summary>
         /// For custom errors. It the error message on TempData["ErrorMessage"] and return a safe place to redirect the User
         /// </summary>
         /// <param name="error"></param>

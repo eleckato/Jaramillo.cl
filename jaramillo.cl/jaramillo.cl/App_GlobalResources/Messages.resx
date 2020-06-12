@@ -141,6 +141,10 @@
     <value>Hubo un error procesando su solicitud, por favor intente más tarde o contacte a su administrador.</value>
     <comment>Error cuando una solicitud a la API no es fallida o devuelve datos no válidos</comment>
   </data>
+  <data name="Error_Unauthorized" xml:space="preserve">
+    <value>No está autorizado para realizar esta acción, por favor inicia sesión con una cuenta autorizada o contacta a soporte si crees que hay un error.</value>
+    <comment>Cuando un Usuario entra a lugares que no está autrozido a entrar</comment>
+  </data>
   <data name="Error_URLInvalida" xml:space="preserve">
     <value>La URL solicitada es invalida.</value>
     <comment>Error cuando una URL no está bien formada o tiene argumentos invalidos</comment>

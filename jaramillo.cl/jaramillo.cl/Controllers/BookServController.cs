@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace jaramillo.cl.Controllers
 {
+    [AllowAnonymous]
     public class BookServController : BaseController
     {
         readonly BookingCaller BC = new BookingCaller();
@@ -104,6 +105,7 @@ namespace jaramillo.cl.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="CLI")]
         public ActionResult BookService(BookingVM newBook)
         {
             if (newBook == null) return Error_FailedRequest();
@@ -143,13 +145,16 @@ namespace jaramillo.cl.Controllers
         }
 
 
+        /* ---------------------------------------------------------------- */
+        /* HELPERS */
+        /* ---------------------------------------------------------------- */
 
         /// <summary>
         /// Revisa la disponibilidad para una reserva, comparando si hay conflicto con el horario de la tienda, otras reservas o restricciones de horario
         /// </summary>
         /// <param name="book"> Reserva a revisar </param>
         [NonAction]
-        public bool? CheckBookAvailability(BookingVM book)
+        private bool? CheckBookAvailability(BookingVM book)
         {
             if (book == null || book.start_date_hour == null || book.end_date_hour == null) 
             {

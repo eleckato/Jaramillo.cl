@@ -202,6 +202,7 @@
     <Compile Include="Common\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Common\Extensions\ViewExtensions.cs" />
     <Compile Include="Common\FixedRequiredAttributeAdapter.cs" />
+    <Compile Include="Common\GMailer.cs" />
     <Compile Include="Common\PropertyCopier.cs" />
     <Compile Include="Common\ViewExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -499,6 +500,7 @@
     <Content Include="Views\PubMech\PubDetails.cshtml" />
     <Content Include="Views\PubMech\UpdatePub.cshtml" />
     <Content Include="Views\PubMech\PayPub.cshtml" />
+    <Content Include="Views\PubMech\AddPub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

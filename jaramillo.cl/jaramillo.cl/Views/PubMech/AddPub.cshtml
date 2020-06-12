@@ -1,0 +1,123 @@
+﻿@model jaramillo.cl.Models.APIModels.PublicacionMec
+
+@{
+    ViewBag.Title = "Solicitar Publicación";
+
+    string goBackURL = Url.Action("PubList", "PubMech");
+}
+
+
+<div class="shadow p-4">
+
+    <div class="row mx-3 ftco-animate">
+            
+        <!-- TITULO -->
+        <div class="w-max-content">
+            <h1 class="color-orange"> @ViewBag.Title </h1>
+        </div>
+        <p>
+            Ingrese la información de tu Pyme y envía una solicitud para que nuestro personal revisará y te avisaremos cuando este aprobada!
+        </p>
+
+    </div>
+
+    <div class="col-12 col-md-10 col-lg-6">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(m => m.public_id);
+            @Html.HiddenFor(m => m.appuser_id);
+            @Html.HiddenFor(m => m.user_type_id);
+            @Html.HiddenFor(m => m.public_status_id);
+            @Html.HiddenFor(m => m.views);
+            @Html.HiddenFor(m => m.email);
+
+            <!-- TITULO -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.title)
+                @Html.TextBoxFor(m => m.title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.title)
+            </div>
+            
+            <!-- DESCRIPCIÓN -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.public_desc)
+                @Html.TextAreaFor(m => m.public_desc, new { @class = "form-control", @rows="5" })
+                @Html.ValidationMessageFor(m => m.public_desc)
+            </div>
+            
+            <!-- HORARIO -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.schedule)
+                @Html.TextBoxFor(m => m.schedule, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.schedule)
+            </div>
+            
+            <!-- SERVICIO -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.services)
+                @Html.TextAreaFor(m => m.services, new { @class = "form-control", @rows="5" })
+                @Html.ValidationMessageFor(m => m.services)
+            </div>
+            
+            <!-- BUSSINESS NAME -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.bussiness_name)
+                @Html.TextBoxFor(m => m.bussiness_name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.bussiness_name)
+            </div>
+            
+            <!-- ADDRESS -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.address)
+                @Html.TextBoxFor(m => m.address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.address)
+            </div>
+            
+            <!-- COMUNA -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.comuna)
+                @Html.TextBoxFor(m => m.comuna, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.comuna)
+            </div>
+            
+            <!-- REGIÓN -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.region)
+                @Html.TextBoxFor(m => m.region, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.region)
+            </div>
+            
+            <!-- TELÉFONO FIJO -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.landline)
+                @Html.TextBoxFor(m => m.landline, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.landline)
+            </div>
+            
+            <!-- CELULAR -->
+            <div class="form-group ftco-animate">
+                @Html.LabelFor(m => m.mobile_number)
+                @Html.TextBoxFor(m => m.mobile_number, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.mobile_number)
+            </div>
+
+
+            <div class="row ftco-animate">
+                        
+                <a href="@goBackURL" role="button" class="btn btn-secondary btn-sm mr-3">
+                    <i class="fa fa-backspace"></i>
+                    Cancelar
+                </a>
+                
+                <button type="submit" class="btn btn-primary btn-sm mr-3">
+                    <i class="fa fa-send"></i>
+                    Enviar Solicitud
+                </button>
+
+            </div>
+
+        }
+    </div>
+
+</div>
+

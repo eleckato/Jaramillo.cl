@@ -100,6 +100,43 @@ namespace jaramillo.cl.APICallers
         }
 
         /// <summary>
+        /// API call to get add a Mechanic Publication
+        /// </summary>
+        /// <param name="newPub"> New Publication model with the data </param>
+        public string AddPub(PublicacionMec newPub)
+        {
+            if (newPub == null)
+            {
+                ErrorWriter.InvalidArgumentsError();
+                return null;
+            }
+
+            try
+            {
+
+                var request = new RestRequest($"{prefix}/publications", Method.POST)
+                {
+                    RequestFormat = DataFormat.Json
+                };
+
+                request.AddJsonBody(newPub);
+
+                var response = client.Execute(request);
+
+                string notFoundMsg = "La Publicación requerida no existe";
+                CheckStatusCode(response, notFoundMsg);
+
+                return response.Content;
+
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// API call to update a Mechanic Publication
         /// </summary>
         /// <param name="newPub"> New Publication model with the data </param>

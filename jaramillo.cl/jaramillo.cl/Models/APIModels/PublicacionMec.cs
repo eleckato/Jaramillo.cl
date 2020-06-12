@@ -86,24 +86,32 @@ namespace jaramillo.cl.Models.APIModels
 
         public PublicacionMec(bool isTemplate)
         {
+            // PK
             public_id = Guid.NewGuid().ToString();
+            // FK
             appuser_id = string.Empty;
             user_type_id = string.Empty;
-            public_status_id = string.Empty;
-            created_at = DateTime.Today;
-            updated_at = DateTime.Today;
-            deleted = false;
+            public_status_id = "PEN";
+
+            // Info
             title = string.Empty;
             public_desc = string.Empty;
             services = string.Empty;
             schedule = string.Empty;
             bussiness_name = string.Empty;
+            // Address
             address = string.Empty;
             comuna = string.Empty;
             region = string.Empty;
+            // Contact Info
             landline = string.Empty;
             mobile_number = string.Empty;
             email = string.Empty;
+            // system
+            created_at = DateTime.Today;
+            updated_at = DateTime.Today;
+            deleted = false;
+            // Maybe
             views = 0;
         }
     }

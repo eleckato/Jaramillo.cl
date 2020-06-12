@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace jaramillo.cl.Controllers
 {
-    [Authorize(Roles = "CLI")]
+
     public class PublicacionMecController : BaseController
     {
         readonly PublicacionesMecCaller PMC = new PublicacionesMecCaller();
@@ -81,10 +81,21 @@ namespace jaramillo.cl.Controllers
         }
 
 
-        // TODO MANDAR MAIL AL MECÁNICO
-        public ActionResult ContactMech(string user, string email, string message)
+        [Authorize(Roles="CLI")]
+        public ActionResult ContactMech(string user, string email, string message, PublicacionMec pub)
         {
             //
+            GMailer.GmailUsername = "jaramillo.helper@gmail.com";
+            GMailer.GmailPassword = "1a.2b.3c";
+
+            GMailer mailer = new GMailer
+            {
+                ToEmail = pub.email,
+                Subject = $"{user} te contactó desde Jaramillo.cl!",
+                Body = $"{user} te contactó desde Jaramillo.cl! Devuelve el mensaje a su mail {email}, este fue su mensaje! <br> {message}",
+                IsHtml = true
+            };
+            mailer.Send();
 
             SetSuccessMsg("Mensaje Enviado con Éxito");
             return Redirect(GetReferer(Request));

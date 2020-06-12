@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No está autorizado para realizar esta acción, por favor inicia sesión con una cuenta autorizada o contacta a soporte si crees que hay un error..
+        /// </summary>
+        internal static string Error_Unauthorized {
+            get {
+                return ResourceManager.GetString("Error_Unauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La URL solicitada es invalida..
         /// </summary>
         internal static string Error_URLInvalida {

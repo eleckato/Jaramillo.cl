@@ -17,6 +17,9 @@ namespace jaramillo.cl.Controllers
         readonly MecanicosCaller MC = new MecanicosCaller();
         readonly UsuariosCaller UC = new UsuariosCaller();
 
+        /* ---------------------------------------------------------------- */
+        /* PUBLICATION LIST */
+        /* ---------------------------------------------------------------- */
 
         // PubList
         [HttpGet]
@@ -49,7 +52,66 @@ namespace jaramillo.cl.Controllers
         }
 
 
-        // AddPub
+        /* ---------------------------------------------------------------- */
+        /* ADD PUBLICATION */
+        /* ---------------------------------------------------------------- */
+
+        [HttpGet]
+        public ActionResult AddPub()
+        {
+            PublicacionMec pub;
+
+            try
+            {
+                // Get userId and the user to check that is actually a Mechanic, just to be sure
+                var userId = User.Identity.GetUserId();
+                var user = UC.GetUser(userId);
+                if (user == null) return Error_FailedRequest();
+
+                if (!user.user_type_id.Equals("MEC")) return Error_Unauthorized();
+                if (!user.mail_confirmed) return Error_CustomError("Debes confirmar tu mail antes de enviar una solicitud de Publicación!");
+
+                // Make templates
+                pub = new PublicacionMec(true)
+                {
+                    appuser_id = userId,
+                    user_type_id = user.user_type_id,
+                    email = user.email,
+                };
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return Error_CustomError(e.Message);
+            }
+
+            return View(pub);
+        }
+
+        [HttpPost]
+        public ActionResult AddPub(PublicacionMec newPub)
+        {
+            if (newPub == null) return Error_InvalidUrl();
+
+            string newPubId;
+
+            try
+            {
+                newPub.created_at = DateTime.Now;
+                newPub.updated_at = DateTime.Now;
+
+                newPubId = PC.AddPub(newPub);
+                if (newPubId == null) return Error_FailedRequest();
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return Error_CustomError(e.Message);
+            }
+
+            SetSuccessMsg("Publicación creada con éxito, te vamos a mandar un mail cuando sea aceptada por nuestro personal!");
+            return RedirectToAction("PubDetails", new { pubId = newPubId });
+        }
 
 
         /* ---------------------------------------------------------------- */
@@ -80,6 +142,7 @@ namespace jaramillo.cl.Controllers
 
             return View(pub);
         }
+
 
         /* ---------------------------------------------------------------- */
         /* UPDATE PUBLICATION */
@@ -127,6 +190,7 @@ namespace jaramillo.cl.Controllers
                 newPub.landline = model.landline;
                 newPub.mobile_number = model.mobile_number;
                 newPub.email = model.email;
+                newPub.updated_at = DateTime.Now;
 
                 var res = PC.UpdatePub(newPub);
                 if (!res) return Error_FailedRequest();
@@ -174,7 +238,7 @@ namespace jaramillo.cl.Controllers
             {
                 if (res)
                 {
-                    var changeRes = PC.ChangeStatus(pubId, "PEN");
+                    var changeRes = PC.ChangeStatus(pubId, "ACT");
                     if (!changeRes) return Error_FailedRequest();
                 }
                 else

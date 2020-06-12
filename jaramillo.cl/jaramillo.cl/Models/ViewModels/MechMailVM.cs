@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using jaramillo.cl.Models.APIModels;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace jaramillo.cl.Models.ViewModels
 {
@@ -15,6 +12,9 @@ namespace jaramillo.cl.Models.ViewModels
         public string email { get; set; }
         [Required]
         public string message { get; set; }
+
+        public PublicacionMec publication;
+
         public MechMailVM()
         {
 
