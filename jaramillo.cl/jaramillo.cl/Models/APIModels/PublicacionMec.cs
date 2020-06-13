@@ -12,7 +12,6 @@ namespace jaramillo.cl.Models.APIModels
         [Required]
         [Display(Name = "Mecánico")]
         public string appuser_id { get; set; }
-        public string mech_name { get; set; }
 
 
         public string user_type_id { get; set; }
@@ -20,8 +19,6 @@ namespace jaramillo.cl.Models.APIModels
         [Required]
         [Display(Name = "Status")]
         public string public_status_id { get; set; }
-
-        public string status_name { get; set; }
 
         [Required]
         [Display(Name = "Fecha de Publicación")]
@@ -78,6 +75,25 @@ namespace jaramillo.cl.Models.APIModels
 
         [Display(Name = "Visitas")]
         public int views { get; set; }
+
+
+        public Usuario user { get; set; }
+        public PublicStatus status { get; set; }
+
+
+        public string mech_name {
+            get
+            {
+                return user?.fullName ?? "ERROR";
+            }
+        }
+        public string status_name { 
+            get
+            {
+                return status?.status_name ?? "ERROR";
+            }
+        }
+
 
         public PublicacionMec()
         {

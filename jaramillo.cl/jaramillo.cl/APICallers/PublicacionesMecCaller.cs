@@ -36,14 +36,11 @@ namespace jaramillo.cl.APICallers
 
                 var pubList = response.Data;
 
-                var pubStatusList = GetAllStatus().ToList();
-                if (pubStatusList == null) return null;
-
-                List<Mecanico> mechList = new MecanicosCaller().GetAllMech(null, null, null).ToList();
-
-                pubList.ForEach(x => {
-                    x = ProcessPub(x, pubStatusList, mechList);
-                });
+                foreach (var pub in pubList)
+                {
+                    if (pub.mobile_number?.Equals("0") ?? false) pub.mobile_number = null;
+                    if (pub.landline?.Equals("0") ?? false) pub.landline = null;
+                }
 
                 return pubList;
             }
@@ -79,13 +76,6 @@ namespace jaramillo.cl.APICallers
                 CheckStatusCode(response, notFoundMsg);
 
                 var pub = response.Data;
-
-                var pubStatusList = GetAllStatus().ToList();
-                if (pubStatusList == null) return null;
-
-                List<Mecanico> mechList = new MecanicosCaller().GetAllMech(null, null, null).ToList();
-
-                pub = ProcessPub(pub, pubStatusList, mechList);
 
                 if (pub.mobile_number?.Equals("0") ?? false) pub.mobile_number = null;
                 if (pub.landline?.Equals("0") ?? false) pub.landline = null;
@@ -251,11 +241,11 @@ namespace jaramillo.cl.APICallers
         {
             if (pub == null || pubStatusLst == null) return null;
 
-            var thisUserType = pubStatusLst.FirstOrDefault(type => type.public_status_id.Equals(pub.public_status_id));
-            pub.status_name = thisUserType?.status_name ?? string.Empty;
+            //var thisUserType = pubStatusLst.FirstOrDefault(type => type.public_status_id.Equals(pub.public_status_id));
+            //pub.status_name = thisUserType?.status_name ?? string.Empty;
 
-            var thisMech = mechList.FirstOrDefault(x => x.appuser_id.Equals(pub.appuser_id));
-            pub.mech_name = thisMech?.fullName ?? "Usuario Eliminado";
+            //var thisMech = mechList.FirstOrDefault(x => x.appuser_id.Equals(pub.appuser_id));
+            //pub.mech_name = thisMech?.fullName ?? "Usuario Eliminado";
 
             return pub;
         }

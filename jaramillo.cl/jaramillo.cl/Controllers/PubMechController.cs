@@ -14,7 +14,6 @@ namespace jaramillo.cl.Controllers
     public class PubMechController : BaseController
     {
         readonly PublicacionesMecCaller PC = new PublicacionesMecCaller();
-        readonly MecanicosCaller MC = new MecanicosCaller();
         readonly UsuariosCaller UC = new UsuariosCaller();
 
         /* ---------------------------------------------------------------- */
@@ -255,57 +254,6 @@ namespace jaramillo.cl.Controllers
 
             SetSuccessMsg("La Publicación fue pagada cone éxito");
             return RedirectToAction("PubDetails", new { pubId });
-        }
-
-
-        /* ---------------------------------------------------------------- */
-        /* OTHER ACTIONS */
-        /* ---------------------------------------------------------------- */
-
-        /// <summary>
-        /// POST  |  API call to update the Status of a Publication
-        /// </summary>
-        /// <param name="pubId"> Id of the Publication to update </param>
-        /// <param name="newStatusId"> Id of the new Status for the Publication </param>
-        public ActionResult ChangePubStatus(string pubId, string newStatusId, string msg = null)
-        {
-            if (string.IsNullOrEmpty(pubId) || string.IsNullOrEmpty(newStatusId)) return Error_InvalidForm();
-
-            try
-            {
-                var res = PC.ChangeStatus(pubId, newStatusId);
-                if (!res) return Error_FailedRequest();
-            }
-            catch (Exception e)
-            {
-                ErrorWriter.ExceptionError(e);
-                return Error_CustomError(e.Message);
-            }
-
-            string contextMsg;
-            switch (newStatusId)
-            {
-                case "REJ":
-                    contextMsg = "La Publicación ha sido rechazada.";
-                    break;
-                case "DEB":
-                    contextMsg = "La Publicación ha sido Aceptada.";
-                    break;
-                case "ACT":
-                    contextMsg = "La Publicación ha sido Activada con éxito.";
-                    break;
-                case "INA":
-                    contextMsg = "La Publicación ha sido Desactivada con éxito.";
-                    break;
-                default:
-                    contextMsg = "El Status de la Publicación ha sido actualizado con Éxito";
-                    break;
-            }
-
-            SetSuccessMsg(msg ?? contextMsg);
-
-            string referer = GetRefererForError(Request);
-            return Redirect(referer);
         }
 
     }

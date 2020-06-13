@@ -2,7 +2,7 @@
 @using jaramillo.cl.Models.APIModels;
 @{
     ViewBag.Title = "Detalles";
-    var user = (Usuario)ViewBag.User;
+    var user = (Usuario)ViewBag.User ?? null;
 
     var goBackURL = Url.Action("PubList", "PublicacionMec");
 }
@@ -24,10 +24,13 @@
                 Volver
             </a>
 
-            <a role="button" class="btn btn-primary" href="#modal-mail" data-toggle="modal">
-                <i class="fa fa-paper-plane"></i>
-                Contactar
-            </a>
+            @if (User.IsInRole("CLI"))
+            {
+                <a role="button" class="btn btn-primary" href="#modal-mail" data-toggle="modal">
+                    <i class="fa fa-paper-plane"></i>
+                    Contactar
+                </a>
+            }
 
         </div>
 
@@ -57,12 +60,12 @@
 
                 <h3 class="mb-1"><strong>Contacto</strong></h3>
 
-                @if (!Model.mobile_number.Equals("0"))
+                @if (Model.mobile_number != null && !Model.mobile_number.Equals("0"))
                 {
                     <p class="mb-0"><strong>Celular</strong> @Model.mobile_number </p>
                 }
 
-                @if (!Model.landline.Equals("0"))
+                @if (Model.landline != null && !Model.landline.Equals("0"))
                 {
                     <p class="mb-0"><strong>Teléfono Fijo</strong> @Model.landline </p>
                 }
@@ -85,7 +88,13 @@
 
 @try
 {
-    @Html.Partial("Partial/_mailModal", new jaramillo.cl.Models.ViewModels.MechMailVM() { email = user.email, user = user.fullName, publication = Model })
+    if (user != null)
+    {
+        @Html.Partial("Partial/_mailModal", new jaramillo.cl.Models.ViewModels.MechMailVM() { 
+            email = user.email, 
+            user = user.fullName, 
+            publication = Model })
+    }
 }
 catch (Exception)
 {

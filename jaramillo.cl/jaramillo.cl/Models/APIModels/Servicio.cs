@@ -61,9 +61,6 @@ namespace jaramillo.cl.Models.APIModels
         [Display(Name = "Status")]
         public string serv_status { get; set; }
 
-        [Required]
-        [Display(Name = "Status")]
-        public string status_name { get; set; }
 
         [Required]
         [Display(Name = "Fecha de Creación")]
@@ -76,6 +73,19 @@ namespace jaramillo.cl.Models.APIModels
         [Required]
         [Display(Name = "Eliminado")]
         public bool deleted { get; set; }
+
+
+        [Display(Name = "Status")]
+        public Servicio serv { get; set; }
+
+        [Required]
+        [Display(Name = "Status")]
+        public string status_name {
+            get
+            {
+                return serv?.name ?? "ERROR";
+            }
+        }
 
         public Servicio()
         {
@@ -92,7 +102,6 @@ namespace jaramillo.cl.Models.APIModels
             estimated_time = 0;
 
             serv_status = string.Empty;
-            status_name = string.Empty;
 
             created_at = DateTime.Now;
             updated_at = DateTime.Now;

@@ -16,21 +16,21 @@
 
                 <div class="pub-container border mb-3 px-4 py-2 mx-auto ftco-animate">
 
-                    <div>
+                    <div class="mb-3">
                         <h2 class="color-orange">@pub.title</h2>
                         <h4 class="mb-3"><strong>Publicada</strong> @pub.created_at.ToString("dd/MM/yyyy")</h4>
 
                         <p class="mb-1"><strong>Dirección</strong> @pub.address - @pub.comuna, @pub.region</p>
                         <p class="mb-1"><strong>Empresa</strong> @pub.bussiness_name</p>
 
-                        @if (!pub.mobile_number.Equals("0"))
+                        @if (pub.mobile_number != null && !pub.mobile_number.Equals("0"))
                         {
-                            <p><strong>Celular</strong> @pub.mobile_number</p>
+                            <p class="mb-1"><strong>Celular</strong> @pub.mobile_number</p>
                         }
 
-                        @if (!pub.landline.Equals("0"))
+                        @if (pub.landline != null && !pub.landline.Equals("0"))
                         {
-                            <p><strong>Teléfono Fijo</strong> @pub.landline</p>
+                            <p class="mb-1"><strong>Teléfono Fijo</strong> @pub.landline</p>
                         }
 
                     </div>

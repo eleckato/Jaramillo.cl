@@ -10,7 +10,6 @@
 
     // URLs
     string aboutURL = Url.Action("About", "Home");
-    string teamURL = "#";
     string servURL = Url.Action("ServList", "BookServ");
     string mechanicsURL = Url.Action("PubList", "PublicacionMec");
     string contactURL = Url.Action("Contact", "Home");
@@ -44,27 +43,29 @@
     <div class="wrap">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-md-3 d-flex align-items-center">
+
+                <div class="col-md-3 d-flex align-items-center mb-3">
                     <a class="navbar-brand" href="/">Jaramillo<span>.</span></a>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
 
-                        <div class="col">
+                <div class="col-md-9">
+                    <div class="row w-100">
+
+                        <div class="mr-4 mb-3">
                             <div class="top-wrap d-flex">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
                                 <div class="text"><span>Dirección</span><span>Calle Falsa 666</span></div>
                             </div>
                         </div>
-
-                        <div class="col">
+                        
+                        <div class="mr-4 mb-3">
                             <div class="top-wrap d-flex">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
                                 <div class="text"><span>Llámanos al</span><span>(+569) 9 0420 6669</span></div>
                             </div>
                         </div>
 
-                        <div class="col-md-6 d-flex justify-content-end align-items-center">
+                        <div class="ml-0 ml-sm-auto d-flex justify-content-start align-items-center">
                             <div role="button" class="social-media">
 
                                 @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
@@ -73,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -92,12 +94,6 @@
                         </a>
                     </li>
                     
-                    <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")">
-                        <a href="@aboutURL" class="nav-link">
-                            Sobre Nosotros
-                        </a>
-                    </li>
-                    
                     <li class="nav-item @(loc.Equals("PublicacionMec|PubList") ? "active" : "")">
                         <a href="@mechanicsURL" class="nav-link">
                             Mecánicos
@@ -107,6 +103,12 @@
                     <li class="nav-item @(loc.Equals("BookServ|ServList") ? "active" : "")" >
                         <a href="@servURL" class="nav-link">
                             Servicios
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item @(loc.Equals("About|Home") ? "active" : "")">
+                        <a href="@aboutURL" class="nav-link">
+                            Sobre Nosotros
                         </a>
                     </li>
                     

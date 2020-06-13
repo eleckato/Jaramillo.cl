@@ -25,15 +25,11 @@ namespace jaramillo.cl.Controllers
         public ActionResult ServList(string name)
         {
             List<Servicio> serv;
-            List<ServStatus> servStatusLst;
 
             try
             {
                 serv = SC.GetAllServ(name, "ACT").ToList();
                 if (serv == null) return Error_FailedRequest();
-
-                servStatusLst = SC.GetAllStatus().ToList();
-                if (servStatusLst == null) return Error_FailedRequest();
             }
             catch (Exception e)
             {
@@ -67,30 +63,37 @@ namespace jaramillo.cl.Controllers
                 if (serv == null) return Error_FailedRequest();
 
                 var userId = User.Identity.GetUserId();
-                var user = UC.GetUser(userId);
-                if (user == null) return Error_FailedRequest();
 
-                bookRestList = BC.GetAllBookRest(servId).ToList();
-                if (bookRestList == null) return Error_FailedRequest();
-
-                bookRestList = bookRestList.Where(x => x.start_date_hour > DateTime.Now).ToList();
-
-                bookTemplate = new BookingVM()
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    booking_id = Guid.NewGuid().ToString().Replace("-", "").ToUpper(),
-                    serv_id = serv.serv_id,
-                    appuser_id = userId,
-                    status_booking_id = "ACT",
-                    updated_at = default, // Update on post
-                    created_at = default, // Update on post
-                    deleted = false,
+                    var user = UC.GetUser(userId);
+                    if (user == null) return Error_FailedRequest();
 
-                    start_date_hour = DateTime.Now.AddDays(1), // Update on form
-                    end_date_hour = DateTime.Now.AddDays(1).AddMinutes(serv.estimated_time), // Update on form
+                    bookRestList = BC.GetAllBookRest(servId).ToList();
+                    if (bookRestList == null) return Error_FailedRequest();
 
-                    serv = serv,
-                    user = user
-                };
+                    bookRestList = bookRestList.Where(x => x.start_date_hour > DateTime.Now).ToList();
+
+                    bookTemplate = new BookingVM()
+                    {
+                        booking_id = Guid.NewGuid().ToString().Replace("-", "").ToUpper(),
+                        serv_id = serv.serv_id,
+                        appuser_id = userId,
+                        status_booking_id = "ACT",
+                        updated_at = default, // Update on post
+                        created_at = default, // Update on post
+                        deleted = false,
+
+                        start_date_hour = DateTime.Now.AddDays(1), // Update on form
+                        end_date_hour = DateTime.Now.AddDays(1).AddMinutes(serv.estimated_time), // Update on form
+
+                        serv = serv,
+                        user = user
+                    };
+
+                    ViewBag.newBooking = bookTemplate;
+                    ViewBag.bookRestList = bookRestList;
+                }
             }
             catch (Exception e)
             {
@@ -98,8 +101,6 @@ namespace jaramillo.cl.Controllers
                 return Error_CustomError(e.Message);
             }
 
-            ViewBag.newBooking = bookTemplate;
-            ViewBag.bookRestList = bookRestList;
 
             return View(serv);
         }

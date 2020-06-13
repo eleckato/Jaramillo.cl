@@ -66,16 +66,18 @@ namespace jaramillo.cl.Controllers
                 if (pub == null) return Error_FailedRequest();
 
                 var userId = User.Identity.GetUserId();
-                user = UC.GetUser(userId);
-                if (user == null) return Error_FailedRequest();
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    user = UC.GetUser(userId);
+                    if (user == null) return Error_FailedRequest();
+                    ViewBag.User = user;
+                }
             }
             catch (Exception e)
             {
                 ErrorWriter.ExceptionError(e);
                 return Error_CustomError(e.Message);
             }
-
-            ViewBag.User = user;
 
             return View(pub);
         }

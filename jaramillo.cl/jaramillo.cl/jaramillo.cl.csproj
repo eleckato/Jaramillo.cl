@@ -253,6 +253,7 @@
     <Content Include="Content\Images\bg_1.jpg" />
     <Content Include="Content\Images\bg_2.jpg" />
     <Content Include="Content\Images\bg_3.jpg" />
+    <Content Include="Content\Images\construction_cat.jpg" />
     <Content Include="Content\mtr-datepicker.default-theme.min.css" />
     <Content Include="Content\mtr-datepicker.min.css" />
     <Content Include="Scripts\jquery-migrate-3.0.1.min.js" />

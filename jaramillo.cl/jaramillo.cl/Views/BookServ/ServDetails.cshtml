@@ -69,7 +69,10 @@
 
 @try
 {
-    @Html.Partial("Partial/_bookServModal", newBooking)
+    if (newBooking != null)
+    {
+        @Html.Partial("Partial/_bookServModal", newBooking)
+    }
 }
 catch (Exception)
 {

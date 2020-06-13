@@ -41,14 +41,6 @@ namespace jaramillo.cl.APICallers
 
                 var servs = response.Data;
 
-                var servStatusLst = GetAllStatus().ToList();
-                if (servStatusLst == null) return null;
-
-                servs.ForEach(pub =>
-                {
-                    pub = ProcessServ(pub, servStatusLst);
-                });
-
                 // Retorna el producto
                 return servs;
             }
@@ -85,11 +77,6 @@ namespace jaramillo.cl.APICallers
 
 
                 var serv = response.Data;
-
-                var servStatusLst = GetAllStatus().ToList();
-                if (servStatusLst == null) return null;
-
-                serv = ProcessServ(serv, servStatusLst);
 
                 return serv;
             }
@@ -129,28 +116,6 @@ namespace jaramillo.cl.APICallers
                 throw e;
             }
         }
-
-
-        /* ---------------------------------------------------------------- */
-        /* HELPERS */
-        /* ---------------------------------------------------------------- */
-
-        /// <summary>
-        /// Set all the secondary data ,like getting the status Name from the status Id
-        /// </summary>
-        /// <param name="serv"> Service to process </param>
-        /// <param name="servStatusList"> List with all Service Status </param>
-        public Servicio ProcessServ(Servicio serv, List<ServStatus> servStatusList)
-        {
-            if (serv == null || servStatusList == null) return null;
-
-            // Set Status
-            var thisProdStatus = servStatusList.FirstOrDefault(status => status.status_id.Equals(serv.serv_status));
-            serv.status_name = thisProdStatus?.status ?? string.Empty;
-
-            return serv;
-        }
-
 
     }
 }

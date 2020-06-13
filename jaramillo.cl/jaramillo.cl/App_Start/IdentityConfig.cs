@@ -8,8 +8,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using jaramillo.cl.Models;
+using jaramillo.cl.APICallers;
 using System.Configuration;
 using Newtonsoft.Json.Linq;
+using jaramillo.cl.Models.APIModels;
+using System.Collections.Generic;
 
 namespace jaramillo.cl
 {
@@ -90,6 +93,11 @@ namespace jaramillo.cl
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
+        readonly List<string> authorizedUsers = new List<string>()
+        {
+            "CLI", "MEC"
+        };
+
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
@@ -157,6 +165,10 @@ namespace jaramillo.cl
 
                 // ERROR: Malformed Token
                 if (payload == null) return SignInStatus.Failure;
+
+                // Check User type on login
+                string userType = payload.Usertype;
+                if (!authorizedUsers.Contains(userType)) return SignInStatus.Failure;
 
                 // Create an Identity Claim
                 ClaimsIdentity claims = jwtProvider.CreateIdentity(true, userName, payload, token);
