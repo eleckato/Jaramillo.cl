@@ -95,7 +95,7 @@ namespace jaramillo.cl
     {
         readonly List<string> authorizedUsers = new List<string>()
         {
-            "CLI", "MEC"
+            "CLI", "MEC", "TES"
         };
 
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)

@@ -5,6 +5,12 @@
     padding-right: 1rem !important;
 }
 
+.cell-compact-sm {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 1rem !important;
+}
+
 .data-table{
     font-size: 18px;
 }

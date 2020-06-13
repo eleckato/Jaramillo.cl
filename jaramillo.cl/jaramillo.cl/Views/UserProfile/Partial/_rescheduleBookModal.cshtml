@@ -109,6 +109,9 @@
             // Change view string for end_date
             $('#end_date_hour_view').text(moment(endTime).format('DD/MM/YYYY HH:mm'))
         });
+        
+        let startTime = new Date( $('#start_date_hour').val() );
+        $("#start_date_hour_cont").datetimepicker("date", startTime);
     });
 
 </script>
