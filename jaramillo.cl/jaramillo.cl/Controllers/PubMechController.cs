@@ -188,7 +188,6 @@ namespace jaramillo.cl.Controllers
                 newPub.region = model.region;
                 newPub.landline = model.landline;
                 newPub.mobile_number = model.mobile_number;
-                newPub.email = model.email;
                 newPub.updated_at = DateTime.Now;
 
                 var res = PC.UpdatePub(newPub);

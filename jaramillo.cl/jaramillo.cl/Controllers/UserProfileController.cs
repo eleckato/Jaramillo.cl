@@ -281,6 +281,30 @@ namespace jaramillo.cl.Controllers
             return html;
         }
 
+        public string GetBookingReceipt(string bookId)
+        {
+            if (string.IsNullOrEmpty(bookId))
+            {
+                ErrorWriter.InvalidArgumentsError();
+                return Resources.Messages.Error_SolicitudFallida;
+            }
+
+            string html;
+
+            try
+            {
+                var item = BC.GetBook(bookId);
+
+                html = PartialView("Partial/_bookingReceipt", item).RenderToString();
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return Resources.Messages.Error_SolicitudFallida;
+            }
+
+            return html;
+        }
 
 
         /* ---------------------------------------------------------------- */

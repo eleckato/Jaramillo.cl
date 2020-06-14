@@ -45,11 +45,11 @@
                         Reagendar
                     </a>
 
-                    <a class="btn btn-sm btn-primary mr-3 mb-3 mb-sm-0" role="button" 
-                       data-toggle="modal" data-book-id="@bookId" href="#reschedule-book-modal" >
+                    <button class="btn btn-sm btn-primary mr-3 mb-3 mb-sm-0" role="button" id="print-book"
+                       @*data-toggle="modal"*@ data-book-id="@bookId" @*href="#print-book"*@ >
                         <i class="fa fa-print"></i>
                         Imprimir Comprobante
-                    </a>
+                    </button>
 
                     <a class="btn btn-sm btn-danger mb-3 mb-sm-0" role="button"
                        data-toggle="modal" data-book-id="@bookId" href="#cancel-modal">
@@ -79,9 +79,12 @@
 @Html.Partial("Partial/_cancelBookModal")
 
 
+<iframe id="print-iframe" name="print-frame-name" class="d-none"></iframe>
+
+
 
 <script>
-    
+
     WaitForJquery(function () {
         // Llena la lista de servicios sacando los items en el listado y preguntando a la API
         $(document).on('show.bs.modal', '#reschedule-book-modal', function (event) {
@@ -106,11 +109,34 @@
             });
 
         });
+
+        $(document).on('click', '#print-book', function () {
+            
+            let bookId = $('#print-book').data('book-id');
+
+            let url = '@Url.Action("GetBookingReceipt", "UserProfile", new { bookId = "replace_this_id" } )';
+            url = url.replace("replace_this_id", bookId);
+
+            var data = {
+                "bookId": bookId
+            }
+
+            return  $.ajax({
+                type: "GET",
+                url: url,
+                data: data,
+                success: function (data) {
+
+                    $("#print-iframe").attr('srcdoc', data);
+
+                }
+            });
+        });
+
     });
 
-    
     // Check if the AJAX HTML load of an element is successful and take some actions
-    function checkHtmlLoad(responseText, textStatus, res, backup_item_list) {
+    function checkHtmlLoad(responseText, textStatus, res,) {
 
         // if the request fails
         if (textStatus == "error") {
@@ -126,10 +152,12 @@
 
             // if everything goes cool and dandy
             } else {
-                
+
             }
         }
 
     }
+
+
 
 </script>

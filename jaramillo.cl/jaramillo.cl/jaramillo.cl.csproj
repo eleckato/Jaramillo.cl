@@ -502,6 +502,7 @@
     <Content Include="Views\PubMech\UpdatePub.cshtml" />
     <Content Include="Views\PubMech\PayPub.cshtml" />
     <Content Include="Views\PubMech\AddPub.cshtml" />
+    <Content Include="Views\UserProfile\Partial\_bookingReceipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

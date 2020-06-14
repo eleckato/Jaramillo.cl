@@ -40,7 +40,7 @@ namespace jaramillo.cl.Common
                 message.Subject = Subject;
                 message.Body = Body;
                 message.IsBodyHtml = IsHtml;
-                smtp.Send(message);
+                //smtp.Send(message);
             }
         }
     }
