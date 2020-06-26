@@ -1,9 +1,11 @@
 ﻿@model List<jaramillo.cl.Models.APIModels.BookingVM>
 @{
-    ViewBag.Title = "Revisar Reservad";
+    ViewBag.Title = "Horas Agendadas";
+
+    string servURL = Url.Action("ServList", "BookServ");
 }
 
-<h2 class="mb-4 ftco-animate"> Reservas </h2>
+<h2 class="mb-4 ftco-animate"> Horas Agendadas </h2>
 
 
 <div class="row mb-5">
@@ -13,6 +15,17 @@
     </div>
     
     <div class="col-12 col-md-9 ftco-animate px-4">
+
+        @if (!Model.Any())
+        {
+            <div>
+                
+                <h3>No tienes ninguna hora agendada ¡Revisa nuestros servicios y agenda ahora!</h3>
+
+                <a class="btn btn-primary" href="@servURL">¡Agenda acá!</a>
+            </div>
+
+        }
 
         @foreach (var book in Model)
         {

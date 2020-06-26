@@ -32,45 +32,58 @@ namespace jaramillo.cl.Models.APIModels
         [Display(Name = "Eliminado")]
         public bool deleted { get; set; }
 
+
         [Required]
         [Display(Name = "Titulo")]
+        [StringLength(50, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string title { get; set; }
 
         [Required]
         [Display(Name = "Descripción")]
+        [StringLength(250, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string public_desc { get; set; }
 
         [Required]
         [Display(Name = "Horario")]
+        [StringLength(30, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string schedule { get; set; }
 
         [Required]
         [Display(Name = "Servicios")]
+        [StringLength(250, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string services { get; set; }
 
         [Display(Name = "Empresa")]
+        [StringLength(25, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string bussiness_name { get; set; }
 
         [Required]
         [Display(Name = "Dirección")]
+        [StringLength(50, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string address { get; set; }
 
         [Required]
         [Display(Name = "Comuna")]
+        [StringLength(60, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string comuna { get; set; }
 
         [Required]
         [Display(Name = "Región")]
+        [StringLength(60, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string region { get; set; }
 
         [Display(Name = "Teléfono Fijo")]
+        [StringLength(20, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string landline { get; set; }
 
         [Display(Name = "Celular")]
+        [StringLength(20, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string mobile_number { get; set; }
 
         [Required]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "El email ingresado no es valido")]
+        [StringLength(50, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string email { get; set; }
 
         [Display(Name = "Visitas")]

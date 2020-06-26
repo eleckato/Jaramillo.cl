@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th class="cell-compact">Fecha de Nacimiento</th>
-                <td>@Model.birthday</td>
+                <td>@(Model.birthday.ToString("dd/MM/yyyy"))</td>
             </tr>
         </table>
 
@@ -59,9 +59,9 @@
             <label class="font-weight-bold m-0">Teléfono</label>
             <p>@(Model.phone)</p>
             <label class="font-weight-bold m-0">Fecha de Nacimiento</label>
-            <p>@(Model.birthday)</p>
+            <p>@(Model.birthday.ToString("dd/MM/yyyy"))</p>
         </div>
-
+        
     </div>
 
 </div>

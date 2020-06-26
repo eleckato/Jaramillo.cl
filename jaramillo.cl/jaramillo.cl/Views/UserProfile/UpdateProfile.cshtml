@@ -30,7 +30,7 @@
                         </th>
                         <td>
                             <div class="row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-6 pr-0 pr-md-3">
                                     @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(x => x.name)
                                 </div>
@@ -81,7 +81,7 @@
                                 var bd = Model.birthday.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                             }
 
-                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker", @Value =  bd })
+                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker-bd", @Value =  bd })
                             @Html.ValidationMessageFor(x => x.birthday)
                         </td>
                     </tr>
@@ -91,7 +91,7 @@
                 <div class="mb-3 d-block d-md-none">
                     <label class="font-weight-bold m-0">@Html.DisplayNameFor(m => m.fullName) Completo</label>
                     <div class="row mb-2">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6  pb-3 pb-md-0">
                             @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.name)
                         </div>
@@ -134,9 +134,16 @@
         
             <!-- BUTTONS -->
             <div class="col-md-12 mt-4">
+                
+                <a href="@goBackURL" class="btn btn-sm btn-secondary mr-3">
+                    <i class="fa fa-backspace"></i>
+                    Cancelar
+                </a>
 
-                <a href="@goBackURL" class="btn btn-secondary mr-3">Cancelar</a>
-                <input type="submit" class="btn btn-primary mr-3" value="Actualizar">
+                <button type="submit" class="btn btn-sm btn-primary mr-3">
+                    <i class="fa fa-save"></i>
+                    Actualizar
+                </button>
 
                 <div class="submitting"></div>
             </div>
@@ -150,4 +157,30 @@
 
 @section customScripts{
     @Html.Partial("Partial/_DatePickerBoilerplate")
+
+    <script>
+    
+        $('.datepicker-bd').datepicker({
+            startDate: '-110y',
+            endDate: '-18y'
+        });
+
+        
+        $(function() {
+            $.validator.addMethod(
+                "regex",
+                function(value, element, regexp) {
+                    var re = new RegExp(regexp);
+                    return this.optional(element) || re.test(value);
+                },
+                "Rut Invalido. Debe tener el formato: 12.123.123-1"
+            );
+
+            $('#rut').rules('add', {
+                regex: /^\d{1,2}\.\d{3}\.\d{3}-[k|K|\d]{1}$/
+            });
+        });
+
+
+    </script>
 }

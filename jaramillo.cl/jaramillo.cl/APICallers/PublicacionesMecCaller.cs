@@ -197,6 +197,28 @@ namespace jaramillo.cl.APICallers
             }
         }
 
+        public bool AddToPubViews(string pubId)
+        {
+            if (string.IsNullOrEmpty(pubId)) return false;
+
+            try
+            {
+                var pub = GetPub(pubId);
+                if (pub == null) return false;
+
+                pub.views += 1;
+
+                var res = UpdatePub(pub);
+                if (!res) return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return false;
+            }
+        }
 
         /* ---------------------------------------------------------------- */
         /* GET SECONDARY DATA */

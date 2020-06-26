@@ -10,36 +10,45 @@ namespace jaramillo.cl.Models.APIModels
 
         [Required]
         [Display(Name = "Username")]
+        [StringLength(15, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string username { get; set; }
 
         [Required]
         [Display(Name = "Contraseña")]
+        [StringLength(30, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string hash { get; set; }
 
         [Required]
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage = "El email ingresado no es valido")]
+        [StringLength(30, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string email { get; set; }
 
         [Required]
         [Display(Name = "Nombres")]
+        [StringLength(25, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string name { get; set; }
 
         [Required]
         [Display(Name = "Apellidos")]
+        [StringLength(25, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string last_names { get; set; }
 
         [Required]
         [Display(Name = "RUT")]
+        [StringLength(12, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string rut { get; set; }
 
         [Required]
         [Display(Name = "Dirección")]
+        [StringLength(50, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string adress { get; set; }
 
         [Required]
         [Display(Name = "Teléfono")]
+        [StringLength(15, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string phone { get; set; }
+
 
         [Required]
         [Display(Name = "Fecha de Nacimiento")]

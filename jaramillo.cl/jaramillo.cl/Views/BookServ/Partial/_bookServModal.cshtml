@@ -73,11 +73,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
                     <i class="fa fa-backspace"></i>
                     Close
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-sm btn-primary">
                     <i class="fa fa-clock"></i>
                     Agendar Hora
                 </button>
@@ -96,6 +96,10 @@
     {
         // Init End Datetime picker View
         $('#end_date_hour_view').text(moment($('#end_date_hour').val()).format('DD/MM/YYYY HH:mm'))
+
+        // Init the datetime picker date
+        let startTime = new Date( $('#start_date_hour').val() );
+        $("#start_date_hour_cont").datetimepicker("date", startTime);
 
         // Cuando start_date_hour Cambia, cambia end_date_hour
         $(document).on('input', '#start_date_hour_view', function ()

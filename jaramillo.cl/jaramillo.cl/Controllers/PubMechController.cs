@@ -204,6 +204,30 @@ namespace jaramillo.cl.Controllers
         }
 
 
+
+        /* ---------------------------------------------------------------- */
+        /* CHANGE STATUS */
+        /* ---------------------------------------------------------------- */
+
+        [HttpGet]
+        public ActionResult ChangePubStatus(string pubId, string newStatusId)
+        {
+            if (string.IsNullOrEmpty(pubId) || string.IsNullOrEmpty(newStatusId)) return Error_InvalidUrl();
+
+            try
+            {
+                bool res = PC.ChangeStatus(pubId, newStatusId);
+                if (!res) return Error_FailedRequest();
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return Error_CustomError(e.Message);
+            }
+
+            return Redirect(GetReferer(Request));
+        }
+
         /* ---------------------------------------------------------------- */
         /* PAY PUBLICATION */
         /* ---------------------------------------------------------------- */

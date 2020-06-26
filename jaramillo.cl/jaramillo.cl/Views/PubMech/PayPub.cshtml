@@ -70,12 +70,12 @@
 <script>
 
     WaitForJquery(function () {
-        
         $.getJSON('https://mindicador.cl/api', function(data) {
             let dailyIndicators = data;
 
             let uf = dailyIndicators.uf.valor;
-            $('#uf-val').text('$' + uf);
+            uf = Math.round(uf);
+            $('#uf-val').text('$' + uf.toLocaleString('es-cl'));
 
         }).fail(function() {
             console.log('Error al consumir la API!');
