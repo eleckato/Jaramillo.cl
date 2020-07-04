@@ -1,0 +1,60 @@
+﻿@model List<jaramillo.cl.Models.ViewModels.UserServVM>
+@{
+    ViewBag.Title = "Historial de Servicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string servURL = Url.Action("ServList", "BookServ");
+}
+
+
+<h2 class="mb-4 ftco-animate"> Historial de Servicios </h2>
+
+
+<div class="row mb-5">
+    
+    <div class="col-12 col-md-3 ftco-animate">
+        @Html.Partial("~/Views/UserProfile/Partial/Sidemenu.cshtml")
+    </div>
+    
+    <div class="col-12 col-md-9 ftco-animate px-4">
+
+        @if (!Model.Any())
+        {
+            <div>
+                
+                <h3>No has contratado ningún servicio ¡Revisa nuestros servicios y agenda ahora!</h3>
+
+                <a class="btn btn-primary" href="@servURL">¡Agenda acá!</a>
+            </div>
+        }
+
+
+
+        @foreach (var serv in Model)
+        {
+            string servUrl = Url.Action("ServDetails", "BookServ", new { servId = serv.serv.serv_id });
+
+            <div class="border p-3 mb-3 hover-container row">
+                
+                <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column">
+                    <label class="font-weight-bold mb-0 mr-3 mr-lg-0" >Nombre</label>
+                    <a href="@servUrl" >@serv.serv.name</a>
+                </div>
+                
+                <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column">
+                    <label class="font-weight-bold mb-0 mr-3 mr-lg-0"> Fecha </label>
+                    <span>@serv.dateString</span>
+                </div>
+                
+                <div class="col-12 col-lg-4 d-flex flex-row flex-lg-column">
+                    <label class="font-weight-bold mb-0 mr-3 mr-lg-0"> Precio </label>
+                    <span>@serv.totalString</span>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+</div>
+

@@ -1,6 +1,7 @@
 ﻿using jaramillo.cl.APICallers;
 using jaramillo.cl.Common;
 using jaramillo.cl.Models.APIModels;
+using jaramillo.cl.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace jaramillo.cl.Controllers
     {
         readonly UsuariosCaller UC = new UsuariosCaller();
         readonly BookingCaller BC = new BookingCaller();
+        readonly SalesCaller SC = new SalesCaller();
 
         public string currentUserId = "";
 
@@ -174,6 +176,56 @@ namespace jaramillo.cl.Controllers
             SetSuccessMsg(successMsg);
 
             return RedirectToAction("Profile");
+        }
+
+
+        /* ---------------------------------------------------------------- */
+        /* SERVICE LIST */
+        /* ---------------------------------------------------------------- */
+
+        [Authorize(Roles = "CLI")]
+        [HttpGet]
+        public ActionResult ServList()
+        {
+            List<UserServVM> servList = new List<UserServVM>();
+
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                if (userId == null) return Error_FailedRequest();
+
+                string n = string.Empty;
+
+                var saleList = SC.GetAllSales(n, "PAG", id_appuser: userId);
+                if (saleList == null) return Error_FailedRequest();
+
+                foreach (var sale in saleList)
+                {
+                    sale.saleItems = SC.GetSaleItems(sale.sale_id).ToList();
+
+                    foreach (var item in sale.saleItems)
+                    {
+                        if(item.serv != null)
+                        {
+                            var newServ = new UserServVM()
+                            {
+                                serv = item.serv,
+                                date = sale.created_at,
+                                total = item.total
+                            };
+                            servList.Add(newServ);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                return Error_CustomError(e.Message);
+            }
+
+            return View(servList);
         }
 
 
@@ -337,6 +389,7 @@ namespace jaramillo.cl.Controllers
             string referer = GetRefererForError(Request);
             return Redirect(referer);
         }
+
 
 
         /* ---------------------------------------------------------------- */

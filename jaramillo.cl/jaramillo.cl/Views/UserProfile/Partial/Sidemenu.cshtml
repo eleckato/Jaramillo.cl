@@ -4,6 +4,7 @@
     var profileURL = Url.Action("Profile", "UserProfile");
     var updateProfileURL = Url.Action("UpdateProfile", "UserProfile");
     var appointmentURL = Url.Action("CheckBookings", "UserProfile");
+    var servListURL = Url.Action("ServList", "UserProfile");
     var changePsw = Url.Action("ChangePassword", "UserProfile");
 }
 
@@ -28,6 +29,12 @@
                     <li class="@(action.Equals("CheckBookings") ? "active" : "")">
                         <a href="@appointmentURL">
                             Horas Agendadas <span class="fa fa-chevron-right"></span>
+                        </a>
+                    </li>
+
+                    <li class="@(action.Equals("ServList") ? "active" : "")">
+                        <a href="@servListURL">
+                            Historial de Servicios <span class="fa fa-chevron-right"></span>
                         </a>
                     </li>
                 }

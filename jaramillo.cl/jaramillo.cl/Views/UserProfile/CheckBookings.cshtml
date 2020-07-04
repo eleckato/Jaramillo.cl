@@ -51,24 +51,31 @@
                     <p>@(book.schedule)</p>
                 </div>
 
-                <div class="ml-auto">
-                    <a class="btn btn-sm btn-primary mr-3 mb-3 mb-sm-0" role="button" 
-                       data-toggle="modal" data-book-id="@bookId" href="#reschedule-book-modal" >
-                        <i class="fa fa-history"></i>
-                        Reagendar
-                    </a>
+                <div class="d-flex flex-column flex-lg-row">
 
-                    <button class="btn btn-sm btn-primary mr-3 mb-3 mb-sm-0" role="button" id="print-book"
-                       @*data-toggle="modal"*@ data-book-id="@bookId" @*href="#print-book"*@ >
-                        <i class="fa fa-print"></i>
-                        Imprimir Comprobante
-                    </button>
+                    <div>
+                        <a class="btn btn-sm btn-primary mr-3 mb-3 mb-lg-0" role="button"
+                           data-toggle="modal" data-book-id="@bookId" href="#reschedule-book-modal">
+                            <i class="fa fa-history"></i>
+                            Reagendar
+                        </a>
+                    </div>
 
-                    <a class="btn btn-sm btn-danger mb-3 mb-sm-0" role="button"
-                       data-toggle="modal" data-book-id="@bookId" href="#cancel-modal">
-                        <i class="fa fa-times"></i>
-                        Cancelar Hora
-                    </a>
+                    <div>
+                        <button class="btn btn-sm btn-primary mr-3 mb-3 mb-lg-0" role="button" id="print-book"
+                                data-book-id="@bookId">
+                            <i class="fa fa-print"></i>
+                            Imprimir Comprobante
+                        </button>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-sm btn-danger mb-3 mb-lg-0" role="button"
+                           data-toggle="modal" data-book-id="@bookId" href="#cancel-modal">
+                            <i class="fa fa-times"></i>
+                            Cancelar Hora
+                        </a>
+                    </div>
 
                 </div>
 
@@ -170,7 +177,5 @@
         }
 
     }
-
-
 
 </script>
