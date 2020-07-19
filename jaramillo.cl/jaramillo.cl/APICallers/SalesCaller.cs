@@ -14,7 +14,6 @@ namespace jaramillo.cl.APICallers
         private readonly string salesPrefix = "sale/sales";
 
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Sales
         /// </summary>
@@ -113,7 +112,6 @@ namespace jaramillo.cl.APICallers
         /* SALE ITEM */
         /* ---------------------------------------------------------------- */
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Sale Items of a Sale
         /// </summary>

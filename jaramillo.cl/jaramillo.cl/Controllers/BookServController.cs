@@ -20,7 +20,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* SERVICES LIST */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Return a view with all the Services
+        /// </summary>
+        /// <param name="name">Name to use as filter</param>
         [HttpGet]
         public ActionResult ServList(string name)
         {
@@ -47,7 +50,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* SERVICE DETAILS */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Return a View with the public information of a Service
+        /// </summary>
+        /// <param name="servId"> Id of the Service to check </param>
         [HttpGet]
         public ActionResult ServDetails(string servId)
         {
@@ -71,8 +77,13 @@ namespace jaramillo.cl.Controllers
 
                     bookRestList = BC.GetAllBookRest(servId).ToList();
                     if (bookRestList == null) return Error_FailedRequest();
-
                     bookRestList = bookRestList.Where(x => x.start_date_hour > DateTime.Now).ToList();
+
+                    var otherBookList = BC.GetAllBookings("ACT", serv_id: servId);
+                    if (otherBookList == null) return Error_FailedRequest();
+                    otherBookList = otherBookList.Where(x => x.start_date_hour > DateTime.Now).ToList();
+
+                    var dateStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1, 10, 0, 0);
 
                     bookTemplate = new BookingVM()
                     {
@@ -84,8 +95,8 @@ namespace jaramillo.cl.Controllers
                         created_at = default, // Update on post
                         deleted = false,
 
-                        start_date_hour = DateTime.Now.AddDays(1), // Update on form
-                        end_date_hour = DateTime.Now.AddDays(1).AddMinutes(serv.estimated_time), // Update on form
+                        start_date_hour = dateStart, // Update on form
+                        end_date_hour = dateStart.AddMinutes(serv.estimated_time), // Update on form
 
                         serv = serv,
                         user = user
@@ -93,6 +104,7 @@ namespace jaramillo.cl.Controllers
 
                     ViewBag.newBooking = bookTemplate;
                     ViewBag.bookRestList = bookRestList;
+                    ViewBag.otherBookList = otherBookList;
                 }
             }
             catch (Exception e)
@@ -105,6 +117,10 @@ namespace jaramillo.cl.Controllers
             return View(serv);
         }
 
+        /// <summary>
+        /// POST    |   Send an API call to register a Booking in the DB
+        /// </summary>
+        /// <param name="newBook"> Model with the new Booking </param>
         [HttpPost]
         [Authorize(Roles="CLI")]
         public ActionResult BookService(BookingVM newBook)
@@ -151,9 +167,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
 
         /// <summary>
-        /// Revisa la disponibilidad para una reserva, comparando si hay conflicto con el horario de la tienda, otras reservas o restricciones de horario
+        /// Revisa la disponibilidad para una reserva, comparando si hay conflicto con el horario de la tienda, 
+        /// otras reservas o restricciones de horario
         /// </summary>
-        /// <param name="book"> Reserva a revisar </param>
+        /// <param name="book"> Modelo con la reserva a revisar </param>
         [NonAction]
         private bool? CheckBookAvailability(BookingVM book)
         {
@@ -281,6 +298,13 @@ namespace jaramillo.cl.Controllers
             }
         }
 
+        /// <summary>
+        /// Revisa si dos lapsus de tiempo se solapan
+        /// </summary>
+        /// <param name="start"> Comienzo del primer lapsus de tiempo </param>
+        /// <param name="end"> Termino del primer lapsus de tiempo </param>
+        /// <param name="chStart"> Comienzo del segundo lapsus de tiempo </param>
+        /// <param name="chFinish"> Termino del segundo lapsus de tiempo </param>
         [NonAction]
         private bool CheckTimeConflict(TimeSpan start, TimeSpan end, TimeSpan chStart, TimeSpan chFinish)
         {
@@ -297,6 +321,14 @@ namespace jaramillo.cl.Controllers
             if (checkMinus || checkPlus) return true;
             else return false;
         }
+
+        /// <summary>
+        /// Revisa si dos lapsus de tiempo se solapan
+        /// </summary>
+        /// <param name="start"> Comienzo del primer lapsus de tiempo </param>
+        /// <param name="end"> Termino del primer lapsus de tiempo </param>
+        /// <param name="chStart"> Comienzo del segundo lapsus de tiempo </param>
+        /// <param name="chFinish"> Termino del segundo lapsus de tiempo </param>
         [NonAction]
         private bool CheckTimeConflict(DateTime start, DateTime end, DateTime chStart, DateTime chFinish)
         {

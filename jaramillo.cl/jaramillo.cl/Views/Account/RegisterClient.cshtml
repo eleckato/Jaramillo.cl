@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Registrarse";
+    var MechRegisterURL = Url.Action("RegisterMech", "Account");
 }
     <div class="wrapper col-12 col-md-12 col-xl-8 mx-auto">
         <div class="contact-wrap w-100 p-md-5 p-4">
@@ -9,10 +10,12 @@
             @using(Html.BeginForm("RegisterClient", "Account", FormMethod.Get, new { @id = "main-form" }))
             {
                 @Html.AntiForgeryToken();
+                
+                <small>¿Quieres registrarte como mecánico? <a href="@MechRegisterURL">¡Haz click aquí!</a></small>
+                <h1 class="color-orange mb-3">Registrarse</h1>
+                <p>Registrarte te permitirá reservar horas para nuestros servicios y contactar a nuestros mecánicos asociados de manera directa!</p>
 
-                <h1 class="mb-4 color-orange">Registrarse</h1>
-
-                <div class="row">
+                <div class="row mt-4">
                     
                     <div class="col-md-12">
                         <div class="form-group">

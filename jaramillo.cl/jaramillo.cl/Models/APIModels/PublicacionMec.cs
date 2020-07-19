@@ -40,26 +40,26 @@ namespace jaramillo.cl.Models.APIModels
 
         [Required]
         [Display(Name = "Descripción")]
-        [StringLength(250, ErrorMessage = "Debe tener menos de {1} caracteres")]
+        [StringLength(500, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string public_desc { get; set; }
 
         [Required]
         [Display(Name = "Horario")]
-        [StringLength(30, ErrorMessage = "Debe tener menos de {1} caracteres")]
+        [StringLength(150, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string schedule { get; set; }
 
         [Required]
         [Display(Name = "Servicios")]
-        [StringLength(250, ErrorMessage = "Debe tener menos de {1} caracteres")]
+        [StringLength(500, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string services { get; set; }
 
         [Display(Name = "Empresa")]
-        [StringLength(25, ErrorMessage = "Debe tener menos de {1} caracteres")]
+        [StringLength(60, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string bussiness_name { get; set; }
 
         [Required]
         [Display(Name = "Dirección")]
-        [StringLength(50, ErrorMessage = "Debe tener menos de {1} caracteres")]
+        [StringLength(150, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string address { get; set; }
 
         [Required]

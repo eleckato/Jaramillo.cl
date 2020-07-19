@@ -14,7 +14,6 @@ namespace jaramillo.cl.APICallers
         private readonly string restPrefix = "booking/booking_restrictions";
 
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Bookings 
         /// </summary>
@@ -222,7 +221,6 @@ namespace jaramillo.cl.APICallers
         /* BOOKING RESTRICTION */
         /* ---------------------------------------------------------------- */
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Bookings Restrictions
         /// </summary>
@@ -311,7 +309,6 @@ namespace jaramillo.cl.APICallers
         /* STORE SCHEDULE */
         /* ---------------------------------------------------------------- */
 
-        //TODO QUE LA API DEVUELVA UN SOLO OBJETO EN VEZ DE UNA LISTA
         /// <summary>
         /// API call to get the Store Schedule
         /// </summary>

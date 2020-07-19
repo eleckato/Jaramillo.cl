@@ -19,13 +19,15 @@
 
                 <div class="form-group mb-3">
                     <label for="user"><small>Nombre</small></label>
-                    @Html.TextBoxFor(m => m.user, new { @class = "form-control disabled", disabled="" })
+                    <p>@Model.user</p>
+                    @Html.HiddenFor(m => m.user)
                     @Html.ValidationMessageFor(m => m.user)
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="email"><small>Email</small></label>
-                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", disabled="" })
+                    <p>@Model.email</p>
+                    @Html.HiddenFor(m => m.email)
                     @Html.ValidationMessageFor(m => m.email)
                 </div>
                 

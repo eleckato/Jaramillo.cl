@@ -18,7 +18,6 @@ namespace jaramillo.cl.APICallers
         /* PRODUCTOS CALLER */
         /* ---------------------------------------------------------------- */
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Products
         /// </summary>

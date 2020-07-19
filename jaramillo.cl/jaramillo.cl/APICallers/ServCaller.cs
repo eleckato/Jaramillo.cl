@@ -16,7 +16,6 @@ namespace jaramillo.cl.APICallers
         /* SERVICES CALLER */
         /* ---------------------------------------------------------------- */
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Services
         /// </summary>

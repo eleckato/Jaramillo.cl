@@ -27,8 +27,12 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* PROFILE */
         /* ---------------------------------------------------------------- */
+        /// <summary>
+        /// GET |   Returns a View with the Profile information fo the current logged Used
+        /// </summary>
         [HttpGet]
         [Route]
+        
         public ActionResult Profile()
         {
             var userId = User.Identity.GetUserId();
@@ -62,6 +66,9 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* UPDATE PROFILE */
         /* ---------------------------------------------------------------- */
+        /// <summary>
+        /// GET |   Returns a form to update some profile information
+        /// </summary>
         [HttpGet]
         [Route(updateRoute)]
         public ActionResult UpdateProfile()
@@ -96,6 +103,10 @@ namespace jaramillo.cl.Controllers
             return View(usuario);
         }
 
+        /// <summary>
+        /// POST    |   API call to update the profile data in the DB. 
+        /// </summary>
+        /// <param name="newUser">Model with the new User Data</param>
         [HttpPost]
         [Route(updateRoute)]
         public ActionResult UpdateProfile(Usuario newUser)
@@ -107,6 +118,7 @@ namespace jaramillo.cl.Controllers
                 Usuario oldUser = UC.GetUser(newUser.appuser_id);
                 if (oldUser == null) return Error_FailedRequest();
 
+                // To make sure only the editable data is modified
                 oldUser.name = newUser.name;
                 oldUser.last_names = newUser.last_names;
                 oldUser.rut = newUser.rut;
@@ -138,6 +150,9 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* CHANGE PASSWORD */
         /* ---------------------------------------------------------------- */
+        /// <summary>
+        /// GET |   Returns a form to change the current logged User password
+        /// </summary>
         [HttpGet]
         [Route(ChangePasswordUrl)]
         public ActionResult ChangePassword()
@@ -149,7 +164,13 @@ namespace jaramillo.cl.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// POST    |   API call to update the current logged User password in the DB. 
+        /// </summary>
+        /// <param name="newPsw">New Password</param>
+        /// <param name="newPsw2">Repeat the new Password</param>
+        /// <param name="oldPsw">Old Password to validate</param>
+        /// <param name="oldPsw2">Repeat the old Password</param>
         [HttpPost]
         [Route(ChangePasswordUrl)]
         public ActionResult ChangePassword(string newPsw, string newPsw2, string oldPsw, string oldPsw2)
@@ -182,7 +203,9 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* SERVICE LIST */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Returns a View with all the Services contracted by the current Used
+        /// </summary>
         [Authorize(Roles = "CLI")]
         [HttpGet]
         public ActionResult ServList()
@@ -232,7 +255,9 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* CHECK BOOKING */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Returns a View with all the Bookings made by the current Used
+        /// </summary>
         [Authorize(Roles = "CLI")]
         [HttpGet]
         public ActionResult CheckBookings()
@@ -262,12 +287,13 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
 
         /// <summary>
-        /// POST  |  API call to reschedule the data of a Booking
+        /// POST  |  API call to reschedule the data of a Booking updating the data in the DB
         /// </summary>
         [HttpPost]
-        public ActionResult RescheduleBook(BookingVM newBook)
+        public ActionResult RescheduleBook(RescheduleBookVM model)
         {
-            if (newBook == null) return Error_InvalidUrl();
+            if (model == null) return Error_InvalidUrl();
+            var newBook = model.booking;
             string bookId = newBook.booking_id;
 
             try
@@ -307,7 +333,10 @@ namespace jaramillo.cl.Controllers
             return RedirectToAction("CheckBookings");
         }
 
-
+        /// <summary>
+        /// Returns the HTML of the modal to reschedule a Booking for an specific Booking
+        /// </summary>
+        /// <param name="bookId">Id of the Booking to Reschedule</param>
         public string GetRescheduleBookModalHtml(string bookId)
         {
             if (string.IsNullOrEmpty(bookId))
@@ -320,9 +349,18 @@ namespace jaramillo.cl.Controllers
 
             try
             {
-                var item = BC.GetBook(bookId);
+                var model = new RescheduleBookVM();
 
-                html = PartialView("Partial/_rescheduleBookModal", item).RenderToString();
+                var booking = BC.GetBook(bookId);
+                model.booking = booking;
+
+                var otherBookList = BC.GetAllBookings("ACT", serv_id: booking.serv_id).ToList();
+                model.otherBookList = otherBookList.Where(x => x.start_date_hour > DateTime.Now).ToList();
+
+                var restList = BC.GetAllBookRest(booking.serv_id).ToList();
+                model.restList = restList.Where(x => x.start_date_hour > DateTime.Now).ToList();
+
+                html = PartialView("Partial/_rescheduleBookModal", model).RenderToString();
             }
             catch (Exception e)
             {
@@ -333,6 +371,10 @@ namespace jaramillo.cl.Controllers
             return html;
         }
 
+        /// <summary>
+        /// Return the HTML of the receipt of a Booking. Is expected to be put inside a <iframe>
+        /// </summary>
+        /// <param name="bookId">Id of the Booking</param>
         public string GetBookingReceipt(string bookId)
         {
             if (string.IsNullOrEmpty(bookId))
@@ -364,7 +406,7 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
 
         /// <summary>
-        /// POST  |  API call to cancel a Booking
+        /// POST  |  API call to update the Status of a Booking to Canceled
         /// </summary>
         /// <param name="bookId"> Id of the Booking to cancel </param>
         [HttpGet]
@@ -397,9 +439,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
 
         /// <summary>
-        /// Revisa la disponibilidad para una reserva, comparando si hay conflicto con el horario de la tienda, otras reservas o restricciones de horario
+        /// Revisa la disponibilidad para una reserva, comparando si hay conflicto con el horario de la tienda, 
+        /// otras reservas o restricciones de horario
         /// </summary>
-        /// <param name="book"> Reserva a revisar </param>
+        /// <param name="book"> Modelo con la reserva a revisar </param>
         [NonAction]
         public bool? CheckBookAvailability(BookingVM book)
         {
@@ -522,6 +565,13 @@ namespace jaramillo.cl.Controllers
             }
         }
 
+        /// <summary>
+        /// Revisa si dos lapsus de tiempo se solapan
+        /// </summary>
+        /// <param name="start"> Comienzo del primer lapsus de tiempo </param>
+        /// <param name="end"> Termino del primer lapsus de tiempo </param>
+        /// <param name="chStart"> Comienzo del segundo lapsus de tiempo </param>
+        /// <param name="chFinish"> Termino del segundo lapsus de tiempo </param>
         [NonAction]
         private bool CheckTimeConflict(TimeSpan start, TimeSpan end, TimeSpan chStart, TimeSpan chFinish)
         {
@@ -538,6 +588,14 @@ namespace jaramillo.cl.Controllers
             if (checkMinus || checkPlus) return true;
             else return false;
         }
+
+        /// <summary>
+        /// Revisa si dos lapsus de tiempo se solapan
+        /// </summary>
+        /// <param name="start"> Comienzo del primer lapsus de tiempo </param>
+        /// <param name="end"> Termino del primer lapsus de tiempo </param>
+        /// <param name="chStart"> Comienzo del segundo lapsus de tiempo </param>
+        /// <param name="chFinish"> Termino del segundo lapsus de tiempo </param>
         [NonAction]
         private bool CheckTimeConflict(DateTime start, DateTime end, DateTime chStart, DateTime chFinish)
         {

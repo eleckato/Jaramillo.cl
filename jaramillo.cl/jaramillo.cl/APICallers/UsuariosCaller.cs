@@ -13,7 +13,6 @@ namespace jaramillo.cl.APICallers
     {
         private readonly string prefix = "user-adm";
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Users
         /// </summary>

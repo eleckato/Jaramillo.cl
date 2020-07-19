@@ -36,6 +36,12 @@
         
         <div class="col-12 col-md-11">
 
+            @if (!Model.Any())
+            {
+                <p>No tienes ninguna publicación en el sistema ¡Solicita una y pronto tendrás tu aviso en jaramillo.cl!</p>
+                <p><strong>Recuerda que debes confirmar tu mail antes de poder solicitar una publicación</strong></p>
+            }
+
             @foreach (var pub in Model)
             {
                 var pubId = pub.public_id;

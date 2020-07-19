@@ -9,7 +9,7 @@ namespace jaramillo.cl.Models.APIModels
         public string appuser_id { get; set; }
 
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Nombre de Usuario")]
         [StringLength(15, ErrorMessage = "Debe tener menos de {1} caracteres")]
         public string username { get; set; }
 

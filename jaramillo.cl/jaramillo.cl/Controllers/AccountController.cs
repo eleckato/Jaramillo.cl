@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +9,6 @@ using jaramillo.cl.Models;
 using jaramillo.cl.Models.APIModels;
 using jaramillo.cl.APICallers;
 using jaramillo.cl.Common;
-using System.Diagnostics;
 using System.Web.Routing;
 
 namespace jaramillo.cl.Controllers
@@ -59,6 +55,7 @@ namespace jaramillo.cl.Controllers
 
         // GET: /Account/Login
         [AnonymousOnly]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -155,14 +152,16 @@ namespace jaramillo.cl.Controllers
 
         // GET: /Account/ForgotPasswordConfirmation
         [AnonymousOnly]
+        [HttpGet]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
 
-        // GET: /Account/ConfirmEmail
+        //? GET: /Account/ConfirmEmail
         [AnonymousOnly]
+        [HttpGet]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -177,6 +176,7 @@ namespace jaramillo.cl.Controllers
 
         // POST: /Account/RegisterClient
         [AnonymousOnly]
+        [HttpGet]
         public ActionResult RegisterClient()
         {
             return View();
@@ -224,7 +224,56 @@ namespace jaramillo.cl.Controllers
             return RedirectToAction("Login", new { userId });
         }
 
-        //? ----------------------------------------------------------------
+
+        // POST: /Account/RegisterClient
+        [AnonymousOnly]
+        [HttpGet]
+        public ActionResult RegisterMech()
+        {
+            return View();
+        }
+
+        // POST: /Account/RegisterClient
+        [HttpPost]
+        [AnonymousOnly]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterMech(Usuario newUser)
+        {
+            if (newUser == null) return Error_InvalidUrl();
+
+            string userId;
+
+            try
+            {
+                var UP = new UsuariosCaller();
+
+                newUser.status_id = "ACT";
+                newUser.user_type_id = "MEC";
+                newUser.mail_confirmed = false;
+                newUser.updated_at = DateTime.Now;
+                newUser.deleted = false;
+                newUser.appuser_id = Guid.NewGuid().ToString();
+
+                userId = UP.RegisterUser(newUser);
+
+                if (userId == null) return Error_FailedRequest();
+                
+            }
+            catch (Exception e)
+            {
+                ErrorWriter.ExceptionError(e);
+                Error_CustomError(e.Message);
+                return RedirectToAction("RegisterMech");
+            }
+
+            string successMsg = "Su cuenta ha sido registrada con éxito!";
+            SetSuccessMsg(successMsg);
+            TempData["registerSuccess"] = true;
+
+            return RedirectToAction("Login", new { userId });
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

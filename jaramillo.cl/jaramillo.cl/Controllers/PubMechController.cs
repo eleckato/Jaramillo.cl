@@ -20,7 +20,9 @@ namespace jaramillo.cl.Controllers
         /* PUBLICATION LIST */
         /* ---------------------------------------------------------------- */
 
-        // PubList
+        /// <summary>
+        /// GET  |  Return a view with a list of Publications
+        /// </summary>
         [HttpGet]
         public ActionResult PubList()
         {
@@ -55,6 +57,9 @@ namespace jaramillo.cl.Controllers
         /* ADD PUBLICATION */
         /* ---------------------------------------------------------------- */
 
+        /// <summary>
+        /// GET  |  Returns a form to request a Publication
+        /// </summary>
         [HttpGet]
         public ActionResult AddPub()
         {
@@ -87,6 +92,10 @@ namespace jaramillo.cl.Controllers
             return View(pub);
         }
 
+        /// <summary>
+        /// POST  |  Send the Publication requested to the API to save it in the DB as a Pending Publication
+        /// </summary>
+        /// <param name="newPub">Model with the new Publication</param>
         [HttpPost]
         public ActionResult AddPub(PublicacionMec newPub)
         {
@@ -146,7 +155,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* UPDATE PUBLICATION */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Returns a form to update a Publication 
+        /// </summary>
+        /// <param name="pubId">Id of the Publication to update</param>
         [HttpGet]
         public ActionResult UpdatePub(string pubId)
         {
@@ -167,6 +179,11 @@ namespace jaramillo.cl.Controllers
 
             return View(pub);
         }
+
+        /// <summary>
+        /// POST  |  Send the Publication requested to the API to update the Publication in the DB
+        /// </summary>
+        /// <param name="model">Model with the new data</param>
 
         [HttpPost]
         public ActionResult UpdatePub(PublicacionMec model)
@@ -208,7 +225,11 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* CHANGE STATUS */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   API Call to update the status of a Publication
+        /// </summary>
+        /// <param name="pubId">Id of the Publication to update</param>
+        /// <param name="newStatusId">Id of the new Status</param>
         [HttpGet]
         public ActionResult ChangePubStatus(string pubId, string newStatusId)
         {
@@ -231,7 +252,10 @@ namespace jaramillo.cl.Controllers
         /* ---------------------------------------------------------------- */
         /* PAY PUBLICATION */
         /* ---------------------------------------------------------------- */
-
+        /// <summary>
+        /// GET |   Returns a View to Pay for a Publication
+        /// </summary>
+        /// <param name="pubId">Id of the Publication to pay</param>
         [HttpGet]
         public ActionResult PayPub(string pubId)
         {
@@ -253,6 +277,11 @@ namespace jaramillo.cl.Controllers
             return View(pub);
         }
 
+        /// <summary>
+        /// POST    |   API call to flag the Publication as payed in the DB
+        /// </summary>
+        /// <param name="pubId">Id of the Publication to pay</param>
+        /// <param name="res">Result of the payment in whatever pay platform its used</param>
         [HttpPost]
         public ActionResult PayPub(string pubId, bool res)
         {

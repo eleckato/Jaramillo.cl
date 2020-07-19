@@ -3,11 +3,13 @@
 @{ 
     int servDur = Model.serv?.estimated_time ?? 0;
     var bookRestList = (List<BookingRestVM>)ViewBag.bookRestList;
+    var otherBookList = (List<BookingVM>)ViewBag.otherBookList;
 }
+
 
 <div id="update-store-sche-modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content px-0 px-md-3">
 
         @using (Html.BeginForm("BookService", "BookServ", FormMethod.Post))
         {
@@ -32,19 +34,21 @@
 
             <div class="modal-body">
                 <p>Elige la fecha y hora para agendar tu servicio, podrás revisarlo luego en tu perfil de usuario</p>
-                <p>El servicio dura <strong>@Model.serv.timeString</strong> y solo se puede agendar desde mañana en adelante!</p>
+                <p>El servicio dura <strong>@Model.serv.timeString</strong>, puedes agendar desde mañana en adelante</p>
 
                 <div class="form-group m-0 mb-3">
                     @Html.LabelFor(m => m.start_date_hour, new { @class="font-weight-bold" })
+                    @Html.Hidden("start_date_hour", Model.start_date_hour?.ToString("o"))
 
                     <div class="input-group date" id="start_date_hour_cont" data-target-input="nearest">
-                        @Html.Hidden("start_date_hour", Model.start_date_hour?.ToString("yyyy-MM-ddTHH:mm"))
 
-                        <input type="text"  value="@Model.start_date_hour" class = "form-control datetimepicker-input h-100" data-target="#start_date_hour_cont" 
+                        <input type="text"  value="@(Model.start_date_hour?.ToString("o"))" class = "form-control datetimepicker-input h-100" data-target="#start_date_hour_cont" 
                                id="start_date_hour_view" />
+
                         <div class="input-group-append" data-target="#start_date_hour_cont" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
+
                     </div>
 
                     @Html.ValidationMessageFor(m => m.start_date_hour)
@@ -52,14 +56,15 @@
                     
                 <div class="form-group">
                     @Html.LabelFor(m => m.end_date_hour, new { @class="font-weight-bold" })
-                    @Html.Hidden("end_date_hour", Model.end_date_hour?.ToString("yyyy-MM-ddTHH:mm"))
+                    @Html.Hidden("end_date_hour", Model.end_date_hour?.ToString("o"))
                     <p id="end_date_hour_view"> </p>
                 </div>
-
+                
+                <!-- RESTRICCIONES -->
                 @if (bookRestList.Any())
                 {
                     <div class="border row py-2 px-3 mb-2" data-toggle="collapse" href="#rest-collapse" style="cursor: pointer">
-                        <h3 class="m-0">Restricciones de Horario para este servicio</h3>
+                        <h3 class="m-0">Restricciones de Horario para este Servicio</h3>
                         <i class="fa fa-caret-down d-flex align-items-center ml-2"></i>
                     </div>
                     <ul id="rest-collapse" class="collapse">
@@ -69,13 +74,28 @@
                         }
                     </ul>
                 }
+                
+                <!-- OTRAS HORAS AGENDADAS -->
+                @if (otherBookList.Any())
+                {
+                    <div class="border row py-2 px-3 mb-2" data-toggle="collapse" href="#other-book-collapse" style="cursor: pointer">
+                        <h3 class="m-0">Otras horas Agendadas para este Servicio</h3>
+                        <i class="fa fa-caret-down d-flex align-items-center ml-2"></i>
+                    </div>
+                    <ul id="other-book-collapse" class="collapse">
+                        @foreach (var book in otherBookList)
+                        {
+                            <li>@(book.schedule)</li>
+                        }
+                    </ul>
+                }
 
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
                     <i class="fa fa-backspace"></i>
-                    Close
+                    Cancelar
                 </button>
                 <button type="submit" class="btn btn-sm btn-primary">
                     <i class="fa fa-clock"></i>
@@ -89,23 +109,29 @@
 </div>
 
 
-
 <script>
 
     WaitForJquery(function ()
     {
-        // Init End Datetime picker View
-        $('#end_date_hour_view').text(moment($('#end_date_hour').val()).format('DD/MM/YYYY HH:mm'))
+        let startTime = moment($('#start_date_hour').val());
+        let endTime = moment($('#end_date_hour').val());
 
-        // Init the datetime picker date
-        let startTime = new Date( $('#start_date_hour').val() );
-        $("#start_date_hour_cont").datetimepicker("date", startTime);
+        
+        $('#start_date_hour_cont').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            daysOfWeekDisabled: [0],
+            date: startTime,
+            minDate: moment(),
+        });
 
+        // Init EndTime Text View
+        $("#end_date_hour_view").text(endTime.format('DD/MM/YYYY HH:mm'));
+        
         // Cuando start_date_hour Cambia, cambia end_date_hour
         $(document).on('input', '#start_date_hour_view', function ()
         {
             // Get start_date time from the view input
-            let newTime = $('#start_date_hour_view').val();
+            let newTime = $("#start_date_hour_cont").datetimepicker("date");
 
             // Change the actual input *with the right format*
             $('#start_date_hour').val(moment(newTime).format('YYYY-MM-DDTHH:mm'));
@@ -119,6 +145,8 @@
             // Change view string for end_date
             $('#end_date_hour_view').text(moment(endTime).format('DD/MM/YYYY HH:mm'))
         });
+
     });
 
 </script>
+

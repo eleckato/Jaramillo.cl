@@ -43,13 +43,12 @@
         <div class="container">
             <div class="row justify-content-between">
 
-                <div class="col-md-3 d-flex align-items-center mb-3">
+                <div class="col-3 d-flex align-items-center mb-3">
                     <a class="navbar-brand" href="/">Jaramillo<span>.</span></a>
                 </div>
 
-                <div class="col-md-9">
-                    <div class="row w-100">
-
+                <div class="col-9 row">
+                    <div class="row d-none d-lg-flex">
                         <div class="mr-4 mb-3">
                             <div class="top-wrap d-flex">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-location-arrow"></span></div>
@@ -63,13 +62,13 @@
                                 <div class="text"><span>Llámanos al</span><span>(+569) 9 0420 6669</span></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="ml-0 ml-sm-auto d-flex justify-content-start align-items-center">
-                            <div role="button" class="social-media">
+                    <div class="ml-auto">
+                        <div class="d-flex flex-column flex-sm-row">
 
-                                @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
+                            @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
 
-                            </div>
                         </div>
                     </div>
                 </div>

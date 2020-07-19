@@ -71,10 +71,10 @@ namespace jaramillo.cl.Controllers
                     user = UC.GetUser(userId);
                     if (user == null) return Error_FailedRequest();
                     ViewBag.User = user;
-                }
 
-                var updateRes = PMC.AddToPubViews(pubId);
-                if (!updateRes) return Error_FailedRequest();
+                    var updateRes = PMC.AddToPubViews(pubId);
+                    if (!updateRes) return Error_FailedRequest();
+                }
             }
             catch (Exception e)
             {

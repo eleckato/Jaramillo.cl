@@ -6,14 +6,14 @@
     string perfilURL = Url.Action("Profile", "UserProfile");
 }
 
+@if (Request.IsAuthenticated)
+{
     <style>
         .dropdown-item:hover{
             background-color: #ffc991 !important;
         }
     </style>
 
-@if (Request.IsAuthenticated)
-{
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
@@ -47,10 +47,10 @@
 }
 else
 {
-    <a role="button" href="@singupURL" class="btn btn-primary mr-3">
+    <a role="button" href="@singupURL" class="btn btn-primary btn-sm mr-0 mr-sm-3 mb-3 mb-sm-0">
         Registrarme
     </a>
-    <a role="button" href="@loginURL" class="btn btn-secondary">
+    <a role="button" href="@loginURL" class="btn btn-secondary btn-sm">
         Iniciar Sesión
     </a>
 }

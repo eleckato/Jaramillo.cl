@@ -15,7 +15,6 @@ namespace jaramillo.cl.APICallers
         /* PUBLICATION CRUD */
         /* ---------------------------------------------------------------- */
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all the Mechanic Publications
         /// </summary>
@@ -249,28 +248,6 @@ namespace jaramillo.cl.APICallers
             }
         }
 
-
-        /* ---------------------------------------------------------------- */
-        /* HELPERS */
-        /* ---------------------------------------------------------------- */
-
-        /// <summary>
-        /// Set all the secondary data ,like getting the status Name from the status Id
-        /// </summary>
-        /// <param name="pub"> Publication to process </param>
-        /// <param name="pubStatusLst"> List with all Status Names </param>
-        public PublicacionMec ProcessPub(PublicacionMec pub, List<PublicStatus> pubStatusLst, List<Mecanico> mechList)
-        {
-            if (pub == null || pubStatusLst == null) return null;
-
-            //var thisUserType = pubStatusLst.FirstOrDefault(type => type.public_status_id.Equals(pub.public_status_id));
-            //pub.status_name = thisUserType?.status_name ?? string.Empty;
-
-            //var thisMech = mechList.FirstOrDefault(x => x.appuser_id.Equals(pub.appuser_id));
-            //pub.mech_name = thisMech?.fullName ?? "Usuario Eliminado";
-
-            return pub;
-        }
 
     }
 }

@@ -87,25 +87,11 @@ namespace jaramillo.cl.Models.APIModels
             }
         }
 
+        public bool is_recurring { get; set; }
+
         public Servicio()
         {
 
-        }
-
-        public Servicio(bool isTemplate)
-        {
-            serv_id = string.Empty;
-            name = string.Empty;
-            serv_desc = string.Empty;
-
-            price = 0;
-            estimated_time = 0;
-
-            serv_status = string.Empty;
-
-            created_at = DateTime.Now;
-            updated_at = DateTime.Now;
-            deleted = false;
         }
     }
 

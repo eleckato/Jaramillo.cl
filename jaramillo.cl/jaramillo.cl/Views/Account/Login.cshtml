@@ -32,11 +32,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.LoginUsername, new { @class = "form-control", @placeholder = "Nombre de Usuario" })
+                        @Html.ValidationMessageFor(m => m.LoginUsername)
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.PasswordFor(m => m.LoginPassword, new { @class = "form-control", @placeholder = "Contraseña" })
+                        @Html.ValidationMessageFor(m => m.LoginPassword)
                     </div>
                 </div>
             </div>

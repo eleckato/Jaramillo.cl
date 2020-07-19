@@ -1,0 +1,176 @@
+﻿@model jaramillo.cl.Models.APIModels.Usuario
+
+@{
+    ViewBag.Title = "Registrarse Como Mecánico";
+    var RegisterClientURL = Url.Action("RegisterClient", "Account");
+}
+    <div class="wrapper col-12 col-md-12 col-xl-8 mx-auto">
+        <div class="contact-wrap w-100 p-md-5 p-4">
+            
+            @using(Html.BeginForm("RegisterMech", "Account", FormMethod.Post, new { @id = "main-form" }))
+            {
+                @Html.AntiForgeryToken();
+                
+                <small>¿Quieres registrarte como cliente? <a href="@RegisterClientURL">¡Haz click aquí!</a></small>
+                <h1 class="mb-3 color-orange">Registrarse Como Mecánico</h1>
+                <p>Tu cuenta de Mecánico en Jaramillo.cl te permitirá publicar avisos en nuestra página para que nuestros Clientes se contacten contigo!</p>
+                
+                <div class="row mt-4">
+                    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.username)
+                                @Html.ValidationMessageFor(m => m.username)
+                            </div>
+                            @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.email)
+                                @Html.ValidationMessageFor(m => m.email)
+                            </div>
+                            @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.hash)
+                                @Html.ValidationMessageFor(m => m.hash)
+                            </div>
+                            @Html.PasswordFor(m => m.hash, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="hash_validation">Repita su Contraseña</label>
+                                <span class="field-validation-valid" data-valmsg-for="hash_validation" data-valmsg-replace="true"></span>
+                            </div>
+                            <input type="password" name="hash_validation" id="hash_validation" value="" class="form-control" />
+                        </div>
+                    </div>
+                    
+                    <!--! DATOS PERSONALES -->
+                    <div class="col-md-12 mt-3">
+                        <h2 class="mb-4 color-orange">Datos Personales</h2>
+                    </div>
+
+                    <div class="col-12 col-lg-6 pr-0 pr-lg-3">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.name)
+                                @Html.ValidationMessageFor(m => m.name)
+                            </div>
+                            @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.last_names)
+                                @Html.ValidationMessageFor(m => m.last_names)
+                            </div>
+                            @Html.TextBoxFor(m => m.last_names, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.rut)
+                                @Html.ValidationMessageFor(m => m.rut)
+                            </div>
+                            @Html.TextBoxFor(m => m.rut, new { @class = "form-control" , @placeholder = "11111111-1"})
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.adress)
+                                @Html.ValidationMessageFor(m => m.adress)
+                            </div>
+                            @Html.TextBoxFor(m => m.adress, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.phone)
+                                @Html.ValidationMessageFor(m => m.phone)
+                            </div>
+                            @Html.TextBoxFor(m => m.phone, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                @Html.LabelFor(m => m.birthday)
+                                @Html.ValidationMessageFor(m => m.birthday)
+                            </div>
+                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control datepicker-bd", @Value = string.Empty })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="submit" value="Registrarse" class="btn btn-sm btn-primary">
+                            <div class="submitting"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+@section customScripts{
+    <!--? Aún se usa esto?? -->
+    @Html.Partial("Partial/_DatePickerBoilerplate")
+
+    <script>
+
+        $('.datepicker-bd').datepicker({
+            startDate: '-110y',
+            endDate: '-18y'
+        });
+
+        $(function() {
+            // Validar que ambas contraseñas sean iguales
+            $('#hash_validation').rules('add', { 
+                equalTo: "#hash", 
+                required: true,
+                messages: { 
+                    equalTo: 'Las contraseñas deben ser iguales',
+                    required: 'Este campo es obligatorio'
+                } 
+            });
+
+            // Validar Rut
+            $.validator.addMethod(
+                "regex",
+                function(value, element, regexp) {
+                    var re = new RegExp(regexp);
+                    return this.optional(element) || re.test(value);
+                },
+                "Rut Invalido. Debe tener el formato: 12.123.123-1"
+            );
+
+            $('#rut').rules('add', {
+                regex: /^\d{1,2}\.\d{3}\.\d{3}-[k|K|\d]{1}$/
+            });
+
+        });
+
+    </script>
+}

@@ -6,6 +6,7 @@
     var newBooking = (BookingVM)ViewBag.newBooking;
 
     var goBackURL = Url.Action("ServList", "BookServ");
+    var registerURL = Url.Action("RegisterClient", "Account");
 }
 
 
@@ -29,6 +30,13 @@
                 <a role="button" class="btn btn-sm btn-primary" href="#update-store-sche-modal" data-toggle="modal">
                     <i class="fa fa-clock"></i>
                     Agendar Hora
+                </a>
+            }
+            else
+            {
+                <a role="button" class="btn btn-sm btn-primary" href="@registerURL" >
+                    <i class="fa fa-sign"></i>
+                    ¡Regístrate para Agendar una Hora!
                 </a>
             }
 

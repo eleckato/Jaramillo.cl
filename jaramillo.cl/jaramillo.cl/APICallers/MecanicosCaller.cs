@@ -56,7 +56,6 @@ namespace jaramillo.cl.APICallers
             }
         }
 
-        // TODO Pagination
         /// <summary>
         /// API call to list all Mechanics
         /// </summary>
